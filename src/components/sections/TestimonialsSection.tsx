@@ -264,14 +264,14 @@ export function TestimonialsSection() {
                 {/* Center Food Photo Frame with Dish Pill */}
                 <div className="relative w-full h-32 xl:h-36 rounded-xl overflow-hidden my-3 border border-black/8 shadow-inner bg-black/5 shrink-0">
                   <Image
-                    src={item.dishImage}
-                    alt={`${item.dishName} ordered by ${item.name}`}
+                    src={item.dishImage || '/images/bowls/korean-chicken-bowl.jpg'}
+                    alt={`${item.dishName || 'FitBowl'} ordered by ${item.name}`}
                     fill
                     sizes="(max-width: 1440px) 400px, 440px"
                     className="editorial-food-img object-cover will-change-transform"
                   />
                   <div className="absolute bottom-2 left-2 bg-[#173F32]/90 backdrop-blur-md text-[#FFF7E8] text-[11px] font-bold px-2.5 py-0.5 rounded-full shadow-sm">
-                    {item.dishName}
+                    {item.dishName || 'FitBowl Special'}
                   </div>
                 </div>
 
@@ -356,14 +356,14 @@ export function TestimonialsSection() {
                 {/* Food Image Crop */}
                 <div className="relative w-full h-36 sm:h-40 rounded-xl overflow-hidden mb-3 border border-black/8 shadow-inner">
                   <Image
-                    src={item.dishImage}
-                    alt={`${item.dishName} ordered by ${item.name}`}
+                    src={item.dishImage || '/images/bowls/korean-chicken-bowl.jpg'}
+                    alt={`${item.dishName || 'FitBowl'} ordered by ${item.name}`}
                     fill
                     sizes="360px"
                     className="object-cover"
                   />
                   <div className="absolute bottom-2 left-2 bg-[#173F32]/90 backdrop-blur-sm text-[#FFF7E8] text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-                    {item.dishName}
+                    {item.dishName || 'FitBowl Special'}
                   </div>
                 </div>
 

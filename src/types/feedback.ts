@@ -1,16 +1,18 @@
 export interface TestimonialItem {
   id: string;
   name: string;
-  age: number;
-  locality: string;
   quote: string;
   rating: number; // 1-5
-  dishName: string;
-  dishImage: string;
-  bgColor: string;
-  borderColor: string;
-  rotationDeg: number;
-  initials: string;
+  age?: number;
+  locality?: string;
+  role?: string;
+  avatar?: string;
+  dishName?: string;
+  dishImage?: string;
+  bgColor?: string;
+  borderColor?: string;
+  rotationDeg?: number;
+  initials?: string;
 }
 
 export interface FAQItem {
