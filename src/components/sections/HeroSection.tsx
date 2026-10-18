@@ -342,14 +342,14 @@ export function HeroSection() {
                 {/* "Real ingredients. Real flavours." badge */}
                 <div
                   ref={badgeRef}
-                  className="absolute -top-2 sm:-top-4 -right-3 sm:-right-5 z-20"
+                  className="absolute top-14 right-2 md:-top-4 md:-right-5 z-20"
                   style={{ opacity: 0 }}
                 >
-                  <div className="bg-white border border-[#E3D8C4] rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl rotate-2 hover:rotate-0 transition-transform duration-300">
-                    <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-[#173F32] leading-tight">
+                  <div className="bg-white border border-[#E3D8C4] rounded-2xl px-2.5 py-2 md:px-4 md:py-3 shadow-xl rotate-2 hover:rotate-0 transition-transform duration-300">
+                    <p className="text-[10px] md:text-xs font-extrabold uppercase tracking-wider text-[#173F32] leading-tight">
                       Real ingredients.
                     </p>
-                    <p className="text-[11px] sm:text-xs font-extrabold text-[#F47738] leading-tight mt-0.5 flex items-center gap-1">
+                    <p className="text-[10px] md:text-xs font-extrabold text-[#F47738] leading-tight mt-0.5 flex items-center gap-1">
                       Real flavours.
                       <span aria-hidden="true">✦</span>
                     </p>
@@ -359,15 +359,15 @@ export function HeroSection() {
                 {/* Macro pill — bottom left */}
                 <div
                   aria-hidden="true"
-                  className="absolute -bottom-3 sm:-bottom-5 -left-3 sm:-left-6 z-20 bg-[#173F32] text-white rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl -rotate-2"
+                  className="absolute bottom-10 left-2 md:-bottom-5 md:-left-6 z-20 bg-[#173F32] text-white rounded-2xl px-2.5 py-2 md:px-4 md:py-3 shadow-xl -rotate-2"
                 >
-                  <p className="text-[10px] sm:text-[11px] font-black text-[#DCEBCF] uppercase tracking-wider leading-none">
+                  <p className="text-[9px] md:text-[11px] font-black text-[#DCEBCF] uppercase tracking-wider leading-none">
                     From
                   </p>
-                  <p className="text-lg sm:text-xl font-black text-[#FFF7E8] leading-none mt-0.5">
+                  <p className="text-base md:text-xl font-black text-[#FFF7E8] leading-none mt-0.5">
                     430 kcal
                   </p>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-[#DCEBCF]/80 leading-none mt-0.5">
+                  <p className="text-[9px] md:text-[11px] font-semibold text-[#DCEBCF]/80 leading-none mt-0.5">
                     macro-balanced
                   </p>
                 </div>
@@ -392,7 +392,7 @@ function BotanicalSprig({ position }: { position: SprigPosition }) {
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none select-none absolute z-0 opacity-75 ${positionClasses[position]}`}
+      className={`pointer-events-none select-none absolute z-0 hidden opacity-75 md:block ${positionClasses[position]}`}
     >
       <svg width="64" height="96" viewBox="0 0 64 96" fill="none">
         <path d="M32 92 Q34 60 32 4" stroke="#4F8562" strokeWidth="1.8" strokeLinecap="round" />

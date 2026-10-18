@@ -7,6 +7,7 @@ import { PricingSection } from '@/components/sections/PricingSection';
 import { HowItWorksSection } from '@/components/sections/HowItWorksSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { FAQNewsletterSection } from '@/components/sections/FAQNewsletterSection';
+import { FoodGalleryMarquee } from '@/components/sections/FoodGalleryMarquee';
 import { TrialFormSection } from '@/components/sections/TrialFormSection';
 import { MobileStickyCTA } from '@/components/ui/MobileStickyCTA';
 
@@ -38,6 +39,9 @@ export default function Home() {
 
         {/* 08 & 09. Newsletter & Frequently Asked Questions (Wireframe Split Layout) */}
         <FAQNewsletterSection />
+
+        {/* 09. Fresh food photo marquee */}
+        <FoodGalleryMarquee />
 
         {/* 10. Free Trial Booking Form (Interactive Validation & Area Check) */}
         <TrialFormSection />

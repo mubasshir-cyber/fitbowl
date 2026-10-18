@@ -15,6 +15,8 @@ export function HeroMarquee({ targetRef }: HeroMarqueeProps) {
   const [pathD, setPathD] = useState('');
   
   useEffect(() => {
+    let resizeFrame = 0;
+
     const updatePath = () => {
       if (!targetRef.current || !containerRef.current) return;
       
@@ -24,6 +26,19 @@ export function HeroMarquee({ targetRef }: HeroMarqueeProps) {
       const cx = targetRect.left - containerRect.left + targetRect.width / 2;
       const cy = targetRect.top - containerRect.top + targetRect.height / 2;
       const r = targetRect.width / 2;
+
+      // Keep the mobile marquee as a complete orbit around the bowl. Desktop
+      // retains the existing open, flowing path exactly as designed.
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        const availableRadius = Math.min(cx, containerRect.width - cx) - 3;
+        const mobileRadius = Math.max(r + 4, Math.min(r + 34, availableRadius));
+        const top = cy - mobileRadius;
+        const bottom = cy + mobileRadius;
+        const circlePath = `M ${cx} ${top} A ${mobileRadius} ${mobileRadius} 0 1 1 ${cx} ${bottom} A ${mobileRadius} ${mobileRadius} 0 1 1 ${cx} ${top}`;
+        setPathD((currentPath) => (currentPath === circlePath ? currentPath : circlePath));
+        return;
+      }
+
       const desktopTextClearance = window.innerWidth >= 1024 ? 10 : 0;
       
       // Path radius slightly larger than the bowl
@@ -56,29 +71,41 @@ export function HeroMarquee({ targetRef }: HeroMarqueeProps) {
       const c2y = pyStart - L * tangentDy;
 
       const d = `M ${p0x} ${p0y} C ${c1x} ${c1y}, ${c2x} ${c2y}, ${pxStart} ${pyStart} A ${pathRadius} ${pathRadius} 0 0 1 ${pxEnd} ${pyEnd}`;
-      setPathD(d);
+      setPathD((currentPath) => (currentPath === d ? currentPath : d));
     };
-    
+
+    const schedulePathUpdate = () => {
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(updatePath);
+    };
+
     updatePath();
+
+    const observer = new ResizeObserver(schedulePathUpdate);
+    if (targetRef.current) observer.observe(targetRef.current);
+    if (containerRef.current) observer.observe(containerRef.current);
+    window.addEventListener('resize', schedulePathUpdate);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', schedulePathUpdate);
+      cancelAnimationFrame(resizeFrame);
+    };
   }, [targetRef]);
   
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced || !textPathRef.current) return;
     
-    // Calculate the pixel length of one repetition of the text to ensure a seamless loop
-    const ctx = gsap.context(() => {
-      // The text is repeated 5 times. 
-      // We animate startOffset from 0 to -singleRepetitionLength
+    let animationContext: gsap.Context | undefined;
+    const animationTimer = window.setTimeout(() => {
       const textNode = textPathRef.current;
-      
-      const setupAnimation = () => {
-        if (!textNode) return;
-        const totalLength = textNode.getComputedTextLength();
-        // we repeated the base string 5 times
-        const singleLength = totalLength / 5;
-        
-        gsap.killTweensOf(textNode);
+      if (!textNode) return;
+
+      const totalLength = textNode.getComputedTextLength();
+      const singleLength = totalLength / 5;
+
+      animationContext = gsap.context(() => {
         gsap.fromTo(
           textNode,
           { attr: { startOffset: 0 } },
@@ -89,14 +116,14 @@ export function HeroMarquee({ targetRef }: HeroMarqueeProps) {
             repeat: -1,
           }
         );
-      };
-      
-      // Short delay to ensure text is rendered and computed length is correct
-      setTimeout(setupAnimation, 100);
-    }, containerRef);
-    
-    return () => ctx.revert();
-  }, [pathD]);
+      }, containerRef);
+    }, 100);
+
+    return () => {
+      window.clearTimeout(animationTimer);
+      animationContext?.revert();
+    };
+  }, []);
   
   const text = 'FRESHLY PREPARED • FULL OF FLAVOUR • MADE FOR YOUR DAY • REAL INGREDIENTS • GOOD FOOD, GOOD MOOD • FRESH EVERY DAY • ';
   const repeatedText = text.repeat(5);

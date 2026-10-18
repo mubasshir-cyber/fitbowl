@@ -45,7 +45,7 @@ export const FAQS_DATA: FAQItem[] = [
   },
   {
     id: 'outside-area',
-    question: 'What if I&apos;m outside the delivery area?',
+    question: "What if I'm outside the delivery area?",
     answer:
       'If your office or home is currently outside our 4 pilot zones, simply select &ldquo;Other&rdquo; in the trial form or enter your details in our waitlist box. We prioritize new kitchen rollouts based on neighborhood demand!',
   },

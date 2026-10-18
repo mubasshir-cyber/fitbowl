@@ -30,6 +30,7 @@ export function MenuSection() {
   const viewAllBtnRef = useRef<HTMLButtonElement>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const cardsAnimationRef = useRef<gsap.core.Tween | null>(null);
 
   // Filter and search logic with smart multi-word matching
   const filteredBowls = useMemo(() => {
@@ -149,7 +150,8 @@ export function MenuSection() {
     return () => ctx.revert();
   }, []);
 
-  // Cards stagger entrance on filter change or expand toggle (skip on search keystrokes to prevent flickering)
+  // Cards enter sequentially when the category or visible result count changes.
+  // Search typing stays immediate so results don't flicker while the user types.
   const prevFilterRef = useRef(activeFilter);
   const prevExpandedRef = useRef(isExpanded);
 
@@ -167,20 +169,28 @@ export function MenuSection() {
       return;
     }
 
+    cardsAnimationRef.current?.kill();
     const cards = Array.from(gridRef.current.querySelectorAll('[data-bowl-card]'));
     if (cards.length === 0) return;
 
-    gsap.fromTo(
+    cardsAnimationRef.current = gsap.fromTo(
       cards,
-      { opacity: 0, y: 16 },
+      { autoAlpha: 0, y: 14, transition: 'none', willChange: 'opacity, transform' },
       {
-        opacity: 1,
+        autoAlpha: 1,
         y: 0,
-        duration: 0.35,
-        stagger: 0.06,
-        ease: 'power2.out',
+        duration: 0.52,
+        stagger: { each: 0.09, from: 'start' },
+        ease: 'power3.out',
+        overwrite: 'auto',
+        clearProps: 'opacity,visibility,transform,transition,willChange',
       }
     );
+
+    return () => {
+      cardsAnimationRef.current?.kill();
+      cardsAnimationRef.current = null;
+    };
   }, [activeFilter, isExpanded]);
 
   const handleOpenDetails = (bowl: BowlItem) => {
@@ -321,14 +331,14 @@ export function MenuSection() {
             <div
               role="tablist"
               aria-label="Filter menu by dietary preference"
-              className="flex items-center gap-1 p-1 bg-white rounded-2xl border border-[#E3D8C4] shadow-2xs"
+              className="grid w-full grid-cols-3 items-stretch gap-1 p-1 bg-white rounded-2xl border border-[#E3D8C4] shadow-2xs sm:flex sm:w-auto sm:items-center"
             >
               <button
                 type="button"
                 role="tab"
                 aria-selected={activeFilter === 'all'}
                 onClick={() => setActiveFilter('all')}
-                className={`text-xs sm:text-sm font-black px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer ${
+                className={`flex min-w-0 items-center justify-center whitespace-nowrap text-[11px] sm:block sm:text-sm font-black px-1.5 sm:px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer ${
                   activeFilter === 'all'
                     ? 'bg-[#173F32] text-white shadow-xs'
                     : 'text-[#334A40] hover:text-[#173F32]'
@@ -341,13 +351,13 @@ export function MenuSection() {
                 role="tab"
                 aria-selected={activeFilter === 'veg'}
                 onClick={() => setActiveFilter('veg')}
-                className={`text-xs sm:text-sm font-black px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                className={`flex min-w-0 items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap text-[11px] sm:text-sm font-black px-1.5 sm:px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer ${
                   activeFilter === 'veg'
                     ? 'bg-[#173F32] text-white shadow-xs'
                     : 'text-[#1B5E20] hover:bg-[#E8F5E9]'
                 }`}
               >
-                <span className="w-2 h-2 rounded-full bg-[#2E7D32]" aria-hidden="true" />
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#2E7D32] shrink-0" aria-hidden="true" />
                 Veg ({vegCount})
               </button>
               <button
@@ -355,13 +365,13 @@ export function MenuSection() {
                 role="tab"
                 aria-selected={activeFilter === 'non-veg'}
                 onClick={() => setActiveFilter('non-veg')}
-                className={`text-xs sm:text-sm font-black px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer flex items-center gap-1.5 ${
+                className={`flex min-w-0 items-center justify-center gap-1 sm:gap-1.5 whitespace-nowrap text-[11px] sm:text-sm font-black px-1.5 sm:px-4 py-2 rounded-xl transition-all duration-200 cursor-pointer ${
                   activeFilter === 'non-veg'
                     ? 'bg-[#173F32] text-white shadow-xs'
                     : 'text-[#9A3412] hover:bg-[#FFEDD5]'
                 }`}
               >
-                <span className="w-2 h-2 rounded-full bg-[#C2410C]" aria-hidden="true" />
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#C2410C] shrink-0" aria-hidden="true" />
                 Non-Veg ({nonVegCount})
               </button>
             </div>
