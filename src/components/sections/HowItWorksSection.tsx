@@ -12,7 +12,7 @@ const STEPS = [
     icon: Utensils,
     title: 'Choose Your Bowl',
     description: 'Pick from 14 delicious options.',
-    badgeBg: 'bg-[#173F32]',
+    badgeBg: 'bg-[#F47738]',
     badgeText: 'text-white',
   },
   {
@@ -28,7 +28,7 @@ const STEPS = [
     icon: Truck,
     title: 'We Deliver',
     description: 'Fresh to your home or office.',
-    badgeBg: 'bg-[#173F32]',
+    badgeBg: 'bg-[#F47738]',
     badgeText: 'text-white',
   },
   {

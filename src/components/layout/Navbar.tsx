@@ -110,10 +110,10 @@ export function Navbar() {
             {/* Desktop Right CTA */}
             <div className="hidden md:flex items-center space-x-4">
               <Button
-                variant="primary"
+                variant="dark"
                 size="md"
                 onClick={() => handleNavClick('#trial-form')}
-                className="group"
+                className="group shadow-sm hover:shadow-md"
               >
                 <span>Claim Free Trial</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />

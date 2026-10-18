@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Nunito } from "next/font/google";
+import { Bricolage_Grotesque, Nunito, Caveat } from "next/font/google";
 import "./globals.css";
 import { FAQS_DATA } from "@/data/faqs";
 
@@ -15,6 +15,13 @@ const nunito = Nunito({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700"],
 });
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://fitbowl.vercel.app";
@@ -123,7 +130,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolage.variable} ${nunito.variable} h-full antialiased`}
+      className={`${bricolage.variable} ${nunito.variable} ${caveat.variable} h-full antialiased`}
     >
       <head>
         <script

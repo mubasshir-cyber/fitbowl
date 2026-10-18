@@ -13,6 +13,7 @@ import { useGsapReveal } from '@/hooks/useGsapReveal';
 export function MenuSection() {
   const [activeFilter, setActiveFilter] = useState<MenuFilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAll, setShowAll] = useState(false);
 
   const menuRef = useGsapReveal<HTMLElement>({
     selector: '[data-menu-reveal]',
@@ -39,6 +40,14 @@ export function MenuSection() {
     });
   }, [activeFilter, searchQuery]);
 
+  // If user searched or filtered, show all matches. Otherwise respect showAll state (default 4).
+  const displayedBowls = useMemo(() => {
+    if (searchQuery.trim() !== '' || activeFilter !== 'all' || showAll) {
+      return filteredBowls;
+    }
+    return filteredBowls.slice(0, 4);
+  }, [filteredBowls, searchQuery, activeFilter, showAll]);
+
   const vegCount = BOWLS_DATA.filter((b) => b.type === 'veg').length;
   const nonVegCount = BOWLS_DATA.filter((b) => b.type === 'non-veg').length;
 
@@ -52,91 +61,110 @@ export function MenuSection() {
   const handleResetFilters = () => {
     setActiveFilter('all');
     setSearchQuery('');
+    setShowAll(false);
   };
 
   return (
     <section id="menu" ref={menuRef} className="py-16 sm:py-20 lg:py-28 relative">
       <Container>
-        {/* Section Header */}
-        <div data-menu-reveal className="flex flex-col items-center text-center space-y-3 mb-10 sm:mb-12">
-          <Badge variant="kicker">OUR MENU</Badge>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#173F32] tracking-tight">
-            Explore Our 14 Bowls
-          </h2>
-          <p className="text-base sm:text-lg text-[#334A40] max-w-2xl font-medium">
-            From Indian classics to global flavours, there&apos;s a chef-crafted
-            macro-balanced bowl for every mood.
-          </p>
-        </div>
-
-        {/* Toolbar: Dietary Filter Tabs & Search Input */}
-        <div data-menu-reveal className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 sm:mb-10 bg-white/60 p-2 sm:p-3 rounded-2xl border border-[#E3D8C4] shadow-xs">
-          {/* Dietary Segmented Filters */}
-          <div className="flex items-center gap-1.5 p-1 bg-[#FFF7E8] rounded-xl border border-[#E3D8C4] w-full sm:w-auto">
+        {/* Wireframe Header Row: Left Title + Button & Right Filters + Search */}
+        <div
+          data-menu-reveal
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10 sm:mb-12"
+        >
+          {/* Left: Kicker, Title, Subtitle, and View All Button */}
+          <div className="flex flex-col items-start space-y-3 max-w-xl text-left">
+            <Badge variant="kicker">OUR MENU</Badge>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#173F32] tracking-tight">
+              Explore Our 14 Bowls
+            </h2>
+            <p className="text-base text-[#334A40] font-medium leading-relaxed">
+              From Indian classics to global flavours, there&apos;s a chef-crafted
+              macro-balanced bowl for every mood.
+            </p>
             <button
               type="button"
-              onClick={() => setActiveFilter('all')}
-              className={`flex-1 sm:flex-none text-xs sm:text-sm font-bold px-4 py-2 rounded-lg transition-all duration-200 ${
-                activeFilter === 'all'
-                  ? 'bg-[#173F32] text-white shadow-xs'
-                  : 'text-[#334A40] hover:text-[#173F32] hover:bg-black/5'
-              }`}
+              onClick={() => setShowAll(!showAll)}
+              className="mt-1 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#E3D8C4] hover:border-[#173F32] text-[#173F32] font-bold text-xs sm:text-sm shadow-xs transition-all hover:bg-[#FFF7E8] cursor-pointer"
             >
-              All ({BOWLS_DATA.length})
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFilter('veg')}
-              className={`flex-1 sm:flex-none text-xs sm:text-sm font-bold px-4 py-2 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 ${
-                activeFilter === 'veg'
-                  ? 'bg-[#173F32] text-white shadow-xs'
-                  : 'text-[#1B5E20] hover:bg-[#E8F5E9]'
-              }`}
-            >
-              <span className="w-2 h-2 rounded-full bg-[#2E7D32]" />
-              Veg ({vegCount})
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveFilter('non-veg')}
-              className={`flex-1 sm:flex-none text-xs sm:text-sm font-bold px-4 py-2 rounded-lg transition-all duration-200 flex items-center justify-center gap-1.5 ${
-                activeFilter === 'non-veg'
-                  ? 'bg-[#173F32] text-white shadow-xs'
-                  : 'text-[#9A3412] hover:bg-[#FFEDD5]'
-              }`}
-            >
-              <span className="w-2 h-2 rounded-full bg-[#C2410C]" />
-              Non-Veg ({nonVegCount})
+              <span>{showAll ? 'Show Featured 4 Bowls' : 'View All 14 Bowls'}</span>
+              <ArrowRight
+                className={`w-4 h-4 transition-transform ${
+                  showAll ? '-rotate-90' : 'group-hover:translate-x-1'
+                }`}
+              />
             </button>
           </div>
 
-          {/* Search Input Box */}
-          <div className="relative w-full sm:w-72 lg:w-80">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#63786F] pointer-events-none" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search bowls or ingredients..."
-              className="w-full pl-9 pr-9 py-2 sm:py-2.5 text-xs sm:text-sm bg-white rounded-xl border border-[#E3D8C4] text-[#173F32] placeholder-[#63786F] focus:outline-none focus:border-[#F47738] focus:ring-2 focus:ring-[#F47738]/20 transition-all"
-            />
-            {searchQuery && (
+          {/* Right: Dietary Segmented Tabs & Live Search Bar */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
+            {/* Dietary Tabs */}
+            <div className="flex items-center gap-1 p-1 bg-white rounded-2xl border border-[#E3D8C4] shadow-xs">
               <button
                 type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#63786F] hover:text-[#173F32] p-0.5"
-                aria-label="Clear search"
+                onClick={() => setActiveFilter('all')}
+                className={`text-xs sm:text-sm font-bold px-4 py-2 rounded-xl transition-all cursor-pointer ${
+                  activeFilter === 'all'
+                    ? 'bg-[#173F32] text-white shadow-xs'
+                    : 'text-[#334A40] hover:text-[#173F32]'
+                }`}
               >
-                <X className="w-4 h-4" />
+                All ({BOWLS_DATA.length})
               </button>
-            )}
+              <button
+                type="button"
+                onClick={() => setActiveFilter('veg')}
+                className={`text-xs sm:text-sm font-bold px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeFilter === 'veg'
+                    ? 'bg-[#173F32] text-white shadow-xs'
+                    : 'text-[#1B5E20] hover:bg-[#E8F5E9]'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-[#2E7D32]" />
+                Veg ({vegCount})
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveFilter('non-veg')}
+                className={`text-xs sm:text-sm font-bold px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
+                  activeFilter === 'non-veg'
+                    ? 'bg-[#173F32] text-white shadow-xs'
+                    : 'text-[#9A3412] hover:bg-[#FFEDD5]'
+                }`}
+              >
+                <span className="w-2 h-2 rounded-full bg-[#C2410C]" />
+                Non-Veg ({nonVegCount})
+              </button>
+            </div>
+
+            {/* Search Input Box */}
+            <div className="relative min-w-[200px] sm:min-w-[240px]">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#63786F] pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search bowls..."
+                className="w-full pl-9 pr-9 py-2.5 text-xs sm:text-sm bg-white rounded-2xl border border-[#E3D8C4] text-[#173F32] placeholder-[#63786F] focus:outline-none focus:border-[#F47738] shadow-xs"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#63786F] hover:text-[#173F32] p-0.5"
+                  aria-label="Clear search"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Bowls Grid or Empty State */}
-        {filteredBowls.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredBowls.map((bowl) => (
+        {displayedBowls.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {displayedBowls.map((bowl) => (
               <BowlCard
                 key={bowl.id}
                 bowl={bowl}

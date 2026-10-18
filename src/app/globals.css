@@ -30,8 +30,13 @@
 
   --font-heading: var(--font-bricolage), system-ui, sans-serif;
   --font-body: var(--font-nunito), system-ui, sans-serif;
+  --font-script: var(--font-caveat), cursive;
 
   --breakpoint-xs: 390px;
+}
+
+.font-script {
+  font-family: var(--font-caveat), cursive;
 }
 
 html {

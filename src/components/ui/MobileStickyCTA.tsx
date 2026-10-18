@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Gift } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from './Button';
 
 export function MobileStickyCTA() {
@@ -55,23 +55,13 @@ export function MobileStickyCTA() {
       className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/95 backdrop-blur-md border-t border-[#E3D8C4] px-4 pt-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))] shadow-2xl transition-all duration-300 animate-in slide-in-from-bottom"
     >
       <div className="flex items-center gap-3">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 text-[11px] font-extrabold text-[#F47738]">
-            <Gift className="w-3.5 h-3.5 shrink-0" />
-            <span className="uppercase tracking-wider">Free First Bowl</span>
-          </div>
-          <p className="text-xs font-bold text-[#173F32] truncate">
-            Zero commitment • 4 Mumbai hubs
-          </p>
-        </div>
-
         <Button
           variant="primary"
-          size="sm"
+          size="md"
           onClick={scrollToTrial}
-          className="shrink-0 font-extrabold shadow-md flex items-center gap-1.5 px-4"
+          className="w-full justify-center font-extrabold shadow-lg flex items-center gap-2 py-3 rounded-full text-sm bg-[#F47738] hover:bg-[#E06324]"
         >
-          <span>Claim Trial</span>
+          <span>Book My Free Trial Meal</span>
           <ArrowRight className="w-4 h-4" />
         </Button>
       </div>

@@ -12,15 +12,20 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 pb-12 border-b border-[#235847]">
           {/* Brand Column (Span 2 on lg) */}
           <div className="lg:col-span-2 space-y-4">
-            <Link href="/" className="inline-block" aria-label="FitBowl Home">
-              <Image
-                src="/images/logo/fitbowl-logo-light.svg"
-                alt="FitBowl"
-                width={160}
-                height={46}
-                className="h-10 w-auto"
-              />
-            </Link>
+            <div>
+              <Link href="/" className="inline-block" aria-label="FitBowl Home">
+                <Image
+                  src="/images/logo/fitbowl-logo-light.svg"
+                  alt="FitBowl"
+                  width={160}
+                  height={46}
+                  className="h-10 w-auto"
+                />
+              </Link>
+              <p className="text-[10px] tracking-[0.22em] font-black uppercase text-[#DCEBCF] mt-1">
+                HEALTHY MEALS DELIVERED
+              </p>
+            </div>
 
             <p className="text-sm text-[#DCEBCF] leading-relaxed max-w-sm font-medium">
               Nutritious, chef-curated veg and non-veg healthy meals delivered
@@ -28,13 +33,11 @@ export function Footer() {
               zero preservatives, cooked fresh each morning.
             </p>
 
-            {/* Editorial Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1F4E3E] border border-[#2B6A56] text-xs font-bold text-[#F47738]">
-              <span>🥑 Good Food</span>
-              <span>•</span>
-              <span>⚡ Busy Life</span>
-              <span>•</span>
-              <span>✨ Sorted!</span>
+            {/* Handwritten script note matching wireframe */}
+            <div className="pt-2">
+              <span className="font-script text-2xl text-[#FFF7E8] font-bold rotate-[-2deg] inline-block">
+                Good Food Busy Life <span className="text-[#F47738]">Sorted!</span> ✨
+              </span>
             </div>
 
             {/* Social Links */}

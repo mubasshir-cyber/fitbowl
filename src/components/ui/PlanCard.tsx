@@ -56,11 +56,15 @@ export function PlanCard({ plan, onSelectPlan }: PlanCardProps) {
         {/* Pricing Block */}
         <div className="py-5 border-b border-[#E3D8C4]/60">
           <div className="flex items-baseline gap-1">
-            <span className="text-3xl sm:text-4xl font-extrabold text-[#173F32] tracking-tight">
+            <span
+              className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${
+                isHighlighted ? 'text-[#F47738]' : 'text-[#173F32]'
+              }`}
+            >
               ₹{plan.totalPrice.toLocaleString('en-IN')}
             </span>
           </div>
-          <p className="text-xs sm:text-sm font-bold text-[#F47738] mt-1">
+          <p className="text-xs sm:text-sm font-semibold text-[#63786F] mt-1">
             ₹{plan.pricePerMeal} per meal
           </p>
         </div>
@@ -87,7 +91,11 @@ export function PlanCard({ plan, onSelectPlan }: PlanCardProps) {
         <Button
           variant={isHighlighted ? 'primary' : 'outline'}
           size="md"
-          className="w-full justify-center group"
+          className={`w-full justify-center group ${
+            isHighlighted
+              ? 'bg-[#F47738] hover:bg-[#E06324] text-white font-extrabold shadow-md'
+              : 'border-[#E3D8C4] text-[#173F32] hover:bg-[#FFF7E8] hover:border-[#173F32]'
+          }`}
           onClick={handleSelect}
         >
           <span>Get Started</span>
