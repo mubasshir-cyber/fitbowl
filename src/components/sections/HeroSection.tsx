@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '../ui/Container';
+import { HeroMarquee } from './HeroMarquee';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -30,8 +31,6 @@ export function HeroSection() {
   const imageWrapRef = useRef<HTMLDivElement>(null);
   const imageSrcRef = useRef<HTMLDivElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
-  const botanicalLeftRef = useRef<HTMLDivElement>(null);
-  const botanicalRightRef = useRef<HTMLDivElement>(null);
 
   const scrollTo = (id: string) => {
     const el = document.querySelector(id);
@@ -51,8 +50,6 @@ export function HeroSection() {
         secondaryCtaRef.current,
         imageWrapRef.current,
         badgeRef.current,
-        botanicalLeftRef.current,
-        botanicalRightRef.current,
       ].filter(Boolean);
 
       const trustItems = trustRef.current
@@ -76,8 +73,6 @@ export function HeroSection() {
       gsap.set(trustItems, { opacity: 0, y: 10 });
       gsap.set(imageWrapRef.current, { opacity: 0, scale: 0.94, y: 20 });
       gsap.set(badgeRef.current, { opacity: 0, y: 12, scale: 0.96 });
-      gsap.set(botanicalLeftRef.current, { opacity: 0, x: -18 });
-      gsap.set(botanicalRightRef.current, { opacity: 0, x: 18 });
 
       // --- Master entrance timeline ---
       const tl = gsap.timeline({ delay: 0.1, defaults: { ease: 'power3.out' } });
@@ -122,13 +117,6 @@ export function HeroSection() {
       // 9. Trust points stagger
       tl.to(trustItems, { opacity: 1, y: 0, duration: 0.38, stagger: 0.1 }, '-=0.15');
 
-      // 10. Botanicals
-      tl.to(
-        [botanicalLeftRef.current, botanicalRightRef.current],
-        { opacity: 1, x: 0, duration: 0.5, stagger: 0.08 },
-        '-=0.4'
-      );
-
       // --- Scroll-linked parallax for food image (subtle) ---
       if (imageSrcRef.current && sectionRef.current) {
         gsap.to(imageSrcRef.current, {
@@ -154,6 +142,8 @@ export function HeroSection() {
       aria-label="FitBowl Hero — Healthy Meal Subscription Mumbai"
       className="relative min-h-screen flex items-center pt-20 sm:pt-24 lg:pt-0 pb-12 sm:pb-16 lg:pb-0 overflow-hidden bg-[#FFF7E8]"
     >
+      <HeroMarquee targetRef={imageSrcRef} />
+
       {/* ── Background organic shapes ── */}
       <div
         aria-hidden="true"
@@ -165,45 +155,6 @@ export function HeroSection() {
         <div className="absolute top-1/4 right-0 translate-x-1/3 w-[520px] h-[520px] rounded-full bg-[#F47738]/8 blur-[80px]" />
         {/* Tiny lower-left leaf wash */}
         <div className="absolute bottom-0 left-1/4 w-72 h-72 rounded-full bg-[#DCEBCF]/25 blur-[60px]" />
-      </div>
-
-      {/* ── Botanical SVG – left margin ── */}
-      <div
-        ref={botanicalLeftRef}
-        aria-hidden="true"
-        className="pointer-events-none select-none absolute left-0 top-32 hidden xl:block z-0"
-        style={{ opacity: 0 }}
-      >
-        <svg width="110" height="220" viewBox="0 0 110 220" fill="none">
-          <path d="M8 210 Q32 140 46 16" stroke="#3E6B4F" strokeWidth="2" strokeLinecap="round" />
-          <path d="M18 182C3 167 8 152 28 169 28 169 24 182 18 182Z" fill="#4F8562" />
-          <path d="M24 175C44 162 44 147 30 166 30 166 24 175 24 175Z" fill="#5B9A71" />
-          <path d="M28 147C11 132 16 117 36 134 36 134 32 147 28 147Z" fill="#4F8562" />
-          <path d="M34 139C56 127 56 112 40 131 40 131 34 139 34 139Z" fill="#6EAE85" />
-          <path d="M38 108C22 93 26 78 44 95 44 95 41 108 38 108Z" fill="#3E6B4F" />
-          <path d="M42 101C64 88 64 73 49 93 49 93 42 101 42 101Z" fill="#5B9A71" />
-          <path d="M46 72C30 57 34 42 52 59 52 59 49 72 46 72Z" fill="#4F8562" />
-          <path d="M50 65C72 52 72 37 56 57 56 57 50 65 50 65Z" fill="#6EAE85" />
-          <path d="M46 16C38 1 54 1 46 16Z" fill="#5B9A71" />
-        </svg>
-      </div>
-
-      {/* ── Botanical SVG – right margin ── */}
-      <div
-        ref={botanicalRightRef}
-        aria-hidden="true"
-        className="pointer-events-none select-none absolute right-0 top-16 hidden xl:block z-0"
-        style={{ opacity: 0 }}
-      >
-        <svg width="90" height="200" viewBox="0 0 90 200" fill="none">
-          <path d="M82 195 Q60 128 50 10" stroke="#385F45" strokeWidth="2" strokeLinecap="round" />
-          <path d="M72 170C87 155 82 140 62 157 62 157 66 170 72 170Z" fill="#3E6B4F" />
-          <path d="M66 163C47 150 47 135 60 154 60 154 66 163 66 163Z" fill="#4F8562" />
-          <path d="M62 135C77 120 72 105 52 122 52 122 56 135 62 135Z" fill="#4F8562" />
-          <path d="M56 128C37 115 37 100 50 119 50 119 56 128 56 128Z" fill="#5B9A71" />
-          <path d="M54 96C68 81 63 66 45 83 45 83 48 96 54 96Z" fill="#3E6B4F" />
-          <path d="M50 10C58-5 42-5 50 10Z" fill="#5B9A71" />
-        </svg>
       </div>
 
       <Container size="wide">
@@ -391,14 +342,14 @@ export function HeroSection() {
                 {/* "Real ingredients. Real flavours." badge */}
                 <div
                   ref={badgeRef}
-                  className="absolute -top-2 sm:-top-4 -right-3 sm:-right-5 z-20"
+                  className="absolute top-14 right-2 md:-top-4 md:-right-5 z-20"
                   style={{ opacity: 0 }}
                 >
-                  <div className="bg-white border border-[#E3D8C4] rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl rotate-2 hover:rotate-0 transition-transform duration-300">
-                    <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-[#173F32] leading-tight">
+                  <div className="bg-white border border-[#E3D8C4] rounded-2xl px-2.5 py-2 md:px-4 md:py-3 shadow-xl rotate-2 hover:rotate-0 transition-transform duration-300">
+                    <p className="text-[10px] md:text-xs font-extrabold uppercase tracking-wider text-[#173F32] leading-tight">
                       Real ingredients.
                     </p>
-                    <p className="text-[11px] sm:text-xs font-extrabold text-[#F47738] leading-tight mt-0.5 flex items-center gap-1">
+                    <p className="text-[10px] md:text-xs font-extrabold text-[#F47738] leading-tight mt-0.5 flex items-center gap-1">
                       Real flavours.
                       <span aria-hidden="true">✦</span>
                     </p>
@@ -408,15 +359,15 @@ export function HeroSection() {
                 {/* Macro pill — bottom left */}
                 <div
                   aria-hidden="true"
-                  className="absolute -bottom-3 sm:-bottom-5 -left-3 sm:-left-6 z-20 bg-[#173F32] text-white rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl -rotate-2"
+                  className="absolute bottom-10 left-2 md:-bottom-5 md:-left-6 z-20 bg-[#173F32] text-white rounded-2xl px-2.5 py-2 md:px-4 md:py-3 shadow-xl -rotate-2"
                 >
-                  <p className="text-[10px] sm:text-[11px] font-black text-[#DCEBCF] uppercase tracking-wider leading-none">
+                  <p className="text-[9px] md:text-[11px] font-black text-[#DCEBCF] uppercase tracking-wider leading-none">
                     From
                   </p>
-                  <p className="text-lg sm:text-xl font-black text-[#FFF7E8] leading-none mt-0.5">
+                  <p className="text-base md:text-xl font-black text-[#FFF7E8] leading-none mt-0.5">
                     430 kcal
                   </p>
-                  <p className="text-[10px] sm:text-[11px] font-semibold text-[#DCEBCF]/80 leading-none mt-0.5">
+                  <p className="text-[9px] md:text-[11px] font-semibold text-[#DCEBCF]/80 leading-none mt-0.5">
                     macro-balanced
                   </p>
                 </div>
@@ -441,7 +392,7 @@ function BotanicalSprig({ position }: { position: SprigPosition }) {
   return (
     <div
       aria-hidden="true"
-      className={`pointer-events-none select-none absolute z-0 opacity-75 ${positionClasses[position]}`}
+      className={`pointer-events-none select-none absolute z-0 hidden opacity-75 md:block ${positionClasses[position]}`}
     >
       <svg width="64" height="96" viewBox="0 0 64 96" fill="none">
         <path d="M32 92 Q34 60 32 4" stroke="#4F8562" strokeWidth="1.8" strokeLinecap="round" />

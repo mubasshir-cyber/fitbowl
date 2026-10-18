@@ -1,5 +1,7 @@
 import { TestimonialItem } from '@/types/feedback';
 
+// Illustrative placeholder content for the reviews carousel. Replace with
+// approved customer reviews before presenting these as real testimonials.
 export const TESTIMONIALS_DATA: TestimonialItem[] = [
   {
     id: 'riya-andheri',
@@ -57,5 +59,69 @@ export const TESTIMONIALS_DATA: TestimonialItem[] = [
     borderColor: '#FAD8C3',
     rotationDeg: 2.2,
     initials: 'A',
+  },
+  {
+    id: 'meera-r',
+    name: 'Meera R.',
+    role: 'Architect',
+    quote: 'A colourful, satisfying lunch that fits easily into my workday.',
+    rating: 5,
+    avatar: '👩‍🎨',
+  },
+  {
+    id: 'dev-p',
+    name: 'Dev P.',
+    role: 'Fitness Coach',
+    quote: 'I like being able to pick a balanced bowl without overthinking lunch.',
+    rating: 5,
+    avatar: '🏋️',
+  },
+  {
+    id: 'ananya-d',
+    name: 'Ananya D.',
+    role: 'Doctor',
+    quote: 'Fresh ingredients and generous portions make busy shifts easier.',
+    rating: 5,
+    avatar: '👩‍⚕️',
+  },
+  {
+    id: 'rohan-b',
+    name: 'Rohan B.',
+    role: 'Entrepreneur',
+    quote: 'The menu has enough variety to keep my weekday meals interesting.',
+    rating: 5,
+    avatar: '👨‍💻',
+  },
+  {
+    id: 'isha-n',
+    name: 'Isha N.',
+    role: 'Teacher',
+    quote: 'A convenient lunch option with bright flavours and lovely presentation.',
+    rating: 5,
+    avatar: '👩‍🏫',
+  },
+  {
+    id: 'aditya-v',
+    name: 'Aditya V.',
+    role: 'Designer',
+    quote: 'The bowls feel thoughtfully put together and keep me full through the afternoon.',
+    rating: 5,
+    avatar: '🧑‍🎨',
+  },
+  {
+    id: 'nisha-t',
+    name: 'Nisha T.',
+    role: 'Accountant',
+    quote: 'Easy to order, fresh to eat, and a welcome change from my usual lunch.',
+    rating: 5,
+    avatar: '👩‍💼',
+  },
+  {
+    id: 'kabir-a',
+    name: 'Kabir A.',
+    role: 'Photographer',
+    quote: 'A tasty, dependable meal between shoots, with options for different moods.',
+    rating: 5,
+    avatar: '📷',
   },
 ];
