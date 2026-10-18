@@ -50,7 +50,7 @@ To deliver an exceptional, production-grade landing page within the 48-hour time
 |---|---|---|---|---|---|
 | **Phase 0** | Repository Audit & Planning | P0 | 45 min | None | **Completed** |
 | **Phase 1** | Foundation & Design System | P0 | 45 min | Phase 0 | **Completed** |
-| **Phase 2** | Navbar & Hero Section | P0 | 60 min | Phase 1 | **Not started** |
+| **Phase 2** | Navbar & Hero Section | P0 | 60 min | Phase 1 | **Completed** |
 | **Phase 3** | Menu Catalog & Pricing Plans | P0 | 75 min | Phase 1 | **Not started** |
 | **Phase 4** | Supporting Content Sections | P1 | 60 min | Phase 2, 3 | **Not started** |
 | **Phase 5** | Free Trial Booking & Conversion | P0 | 75 min | Phase 1, 3 | **Not started** |
@@ -188,11 +188,11 @@ Implement the responsive navigation bar with the official logo and the high-conv
 - `src/app/page.tsx`
 
 ### Acceptance Criteria
-- [ ] Navbar remains sticky on scroll with backdrop blur.
-- [ ] Headline highlights "taste" in `#F47738`.
-- [ ] Both CTAs smoothly navigate to their respective destinations.
-- [ ] Hero image preloads with `priority` attribute.
-- [ ] Mobile hamburger drawer opens, closes, and navigates seamlessly.
+- [x] Navbar remains sticky on scroll with backdrop blur.
+- [x] Headline highlights "taste" in `#F47738`.
+- [x] Both CTAs smoothly navigate to their respective destinations.
+- [x] Hero image preloads with `priority` attribute.
+- [x] Mobile hamburger drawer opens, closes, and navigates seamlessly.
 
 ### Verification Steps
 ```bash
