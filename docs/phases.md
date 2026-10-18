@@ -48,7 +48,7 @@ To deliver an exceptional, production-grade landing page within the 48-hour time
 
 | Phase | Title | Priority | Active Effort | Dependencies | Status |
 |---|---|---|---|---|---|
-| **Phase 0** | Repository Audit & Planning | P0 | 45 min | None | **Not started** |
+| **Phase 0** | Repository Audit & Planning | P0 | 45 min | None | **Completed** |
 | **Phase 1** | Foundation & Design System | P0 | 45 min | Phase 0 | **Not started** |
 | **Phase 2** | Navbar & Hero Section | P0 | 60 min | Phase 1 | **Not started** |
 | **Phase 3** | Menu Catalog & Pricing Plans | P0 | 75 min | Phase 1 | **Not started** |
@@ -80,10 +80,10 @@ Inspect the existing codebase, dependencies, assets, and Git history. Confirm te
 - `README.md` (audit baseline)
 
 ### Acceptance Criteria
-- [ ] Existing codebase integrity preserved; no destructive overwrites.
-- [ ] Confirmed Tailwind v4 `@theme` compatibility with React 19.
-- [ ] Verified GSAP and Lucide React versions.
-- [ ] Initial architectural decisions documented in `docs/architecture.md`.
+- [x] Existing codebase integrity preserved; no destructive overwrites.
+- [x] Confirmed Tailwind v4 `@theme` compatibility with React 19.
+- [x] Verified GSAP and Lucide React versions.
+- [x] Initial architectural decisions documented in `docs/architecture.md`.
 
 ### Verification Steps
 ```bash
