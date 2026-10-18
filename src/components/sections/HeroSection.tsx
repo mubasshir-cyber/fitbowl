@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '../ui/Container';
+import { HeroMarquee } from './HeroMarquee';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -154,6 +155,8 @@ export function HeroSection() {
       aria-label="FitBowl Hero — Healthy Meal Subscription Mumbai"
       className="relative min-h-screen flex items-center pt-20 sm:pt-24 lg:pt-0 pb-12 sm:pb-16 lg:pb-0 overflow-hidden bg-[#FFF7E8]"
     >
+      <HeroMarquee targetRef={imageSrcRef} />
+
       {/* ── Background organic shapes ── */}
       <div
         aria-hidden="true"
