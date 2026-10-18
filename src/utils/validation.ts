@@ -1,53 +1,55 @@
 export function validateFullName(name: string): string | null {
   const trimmed = name.trim();
   if (!trimmed) {
-    return 'Full name is required';
+    return 'Please enter your full name.';
   }
   if (trimmed.length < 2) {
-    return 'Name must be at least 2 characters';
+    return 'Full name must be at least 2 characters.';
   }
   if (!/^[a-zA-Z\s.'-]+$/.test(trimmed)) {
-    return 'Name should contain letters and spaces only';
+    return 'Name should contain letters and spaces only.';
   }
   return null;
 }
 
 export function validateMobile(mobile: string): string | null {
-  const cleaned = mobile.replace(/[\s-]/g, '');
+  // Normalize: strip leading country code (+91, 91, or 0) and any non-digits
+  const cleaned = mobile.replace(/^(\+91|91|0)/, '').replace(/\D/g, '');
   if (!cleaned) {
-    return 'Mobile number is required';
+    return 'Enter a valid 10-digit Indian mobile number.';
   }
   if (!/^[6-9]\d{9}$/.test(cleaned)) {
-    return 'Please enter a valid 10-digit Indian mobile number (e.g. 98201 98201)';
+    return 'Enter a valid 10-digit Indian mobile number.';
   }
   return null;
 }
 
 export function validateDeliveryArea(area: string): string | null {
   if (!area) {
-    return 'Please select your delivery area';
+    return 'Please select your delivery area.';
   }
   return null;
 }
 
 export function validateDeliveryDate(dateStr: string): string | null {
   if (!dateStr) {
-    return 'Please select a delivery date';
+    return 'Choose a date from Monday to Saturday.';
   }
 
   const selected = new Date(dateStr + 'T00:00:00');
   if (isNaN(selected.getTime())) {
-    return 'Invalid date selected';
+    return 'Choose a date from Monday to Saturday.';
   }
 
-  // Check Sunday (getDay() === 0)
+  // Prevent Sundays (getDay() === 0)
   if (selected.getDay() === 0) {
-    return 'We do not deliver on Sundays. Please select Monday to Saturday.';
+    return 'Choose a date from Monday to Saturday.';
   }
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
+  // Prevent past and today dates (orders are for tomorrow onwards)
   if (selected <= today) {
     return 'Delivery date must be at least 1 day in advance (tomorrow onwards).';
   }

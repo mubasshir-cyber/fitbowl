@@ -16,5 +16,6 @@ export interface FormValidationErrors {
   fullName?: string;
   mobile?: string;
   deliveryArea?: string;
+  foodPreference?: string;
   deliveryDate?: string;
 }
