@@ -89,7 +89,7 @@ npm run lint
 - [x] **Phase 3 — Menu Catalog & Pricing Plans:** All 14 signature bowls with dietary filters/search and 3 subscription tiers.
 - [x] **Phase 4 — Supporting Content Sections:** Benefits, How It Works, 4 verified testimonials, newsletter, and 8 FAQs.
 - [x] **Phase 5 — Free Trial Booking & Conversion:** Form validation, Sunday blocker, out-of-area waitlist routing, and simulated submission.
-- [ ] **Phase 6 — Animation, Responsive QA, Accessibility & Performance:** GSAP ScrollTrigger reveals, reduced motion, responsive QA (390px), and a11y.
+- [x] **Phase 6 — Animation, Responsive QA, Accessibility & Performance:** GSAP ScrollTrigger reveals, reduced motion, responsive QA (390px), and a11y.
 - [ ] **Phase 7 — SEO, Testing & Production Polish:** Metadata, JSON-LD schemas, sitemap, robots.txt, and production verification.
 - [ ] **Phase 8 — Documentation, Git History & Live Deployment:** Final README updates and public deployment.
 

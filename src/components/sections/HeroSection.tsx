@@ -14,6 +14,7 @@ import {
 import { Container } from '../ui/Container';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
+import { useGsapReveal } from '@/hooks/useGsapReveal';
 
 const TRUST_BADGES = [
   {
@@ -39,6 +40,13 @@ const TRUST_BADGES = [
 ];
 
 export function HeroSection() {
+  const heroRef = useGsapReveal<HTMLElement>({
+    selector: '[data-hero-reveal]',
+    stagger: 0.1,
+    y: 20,
+    duration: 0.6,
+  });
+
   const scrollToSection = (id: string) => {
     const el = document.querySelector(id);
     if (el) {
@@ -49,6 +57,7 @@ export function HeroSection() {
   return (
     <section
       id="top"
+      ref={heroRef}
       className="relative pt-24 sm:pt-28 lg:pt-36 pb-14 sm:pb-20 lg:pb-28 overflow-hidden"
     >
       {/* Subtle organic background foliage accents */}
@@ -60,10 +69,15 @@ export function HeroSection() {
           {/* Left Column: Copy & Value Proposition (7 cols on lg) */}
           <div className="lg:col-span-7 flex flex-col items-start space-y-6 sm:space-y-7 text-left">
             {/* Location Pill */}
-            <Badge variant="kicker">FRESH BOWLS • MUMBAI</Badge>
+            <div data-hero-reveal>
+              <Badge variant="kicker">FRESH BOWLS • MUMBAI</Badge>
+            </div>
 
             {/* H1 Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[62px] font-extrabold text-[#173F32] leading-[1.08] tracking-tight">
+            <h1
+              data-hero-reveal
+              className="text-4xl sm:text-5xl lg:text-[62px] font-extrabold text-[#173F32] leading-[1.08] tracking-tight"
+            >
               Healthy doesn&apos;t have to{' '}
               <span className="text-[#F47738] inline-block relative">
                 taste
@@ -85,13 +99,19 @@ export function HeroSection() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-[#334A40] font-medium leading-relaxed max-w-xl">
+            <p
+              data-hero-reveal
+              className="text-lg sm:text-xl text-[#334A40] font-medium leading-relaxed max-w-xl"
+            >
               Delicious, freshly prepared gourmet bowls delivered to your home
               or office in Mumbai.
             </p>
 
             {/* Trust Strip (4 items) */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full py-1">
+            <div
+              data-hero-reveal
+              className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full py-1"
+            >
               {TRUST_BADGES.map((badge, idx) => {
                 const IconComponent = badge.icon;
                 return (
@@ -116,7 +136,10 @@ export function HeroSection() {
             </div>
 
             {/* Dual CTAs Cluster */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 w-full sm:w-auto">
+            <div
+              data-hero-reveal
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 w-full sm:w-auto"
+            >
               {/* Primary Trial CTA */}
               <Button
                 variant="primary"
@@ -150,7 +173,10 @@ export function HeroSection() {
           </div>
 
           {/* Right Column: Hero Visual Food Bowl & Floating Badges (5 cols on lg) */}
-          <div className="lg:col-span-5 relative flex justify-center items-center mt-4 lg:mt-0">
+          <div
+            data-hero-reveal
+            className="lg:col-span-5 relative flex justify-center items-center mt-4 lg:mt-0"
+          >
             {/* Center Bowl Circular Glow Backdrop */}
             <div className="absolute w-[290px] h-[290px] sm:w-[380px] sm:h-[380px] lg:w-[440px] lg:h-[440px] rounded-full bg-linear-to-tr from-[#DCEBCF] to-[#FFE2C2] opacity-70 blur-xl -z-10" />
 

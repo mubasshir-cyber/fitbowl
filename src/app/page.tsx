@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/layout/Navbar';
+import { Footer } from '@/components/layout/Footer';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { BenefitsSection } from '@/components/sections/BenefitsSection';
 import { MenuSection } from '@/components/sections/MenuSection';
@@ -45,6 +46,9 @@ export default function Home() {
         {/* 10. Free Trial Booking Form (Interactive Validation & Area Check) */}
         <TrialFormSection />
       </main>
+
+      {/* 11. Global Footer */}
+      <Footer />
 
       {/* Mobile Sticky Action Bar */}
       <MobileStickyCTA />

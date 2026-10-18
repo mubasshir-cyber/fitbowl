@@ -5,8 +5,15 @@ import { Sparkles, ShieldCheck } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { PlanCard } from '../ui/PlanCard';
 import { SUBSCRIPTION_PLANS } from '@/data/plans';
+import { useGsapReveal } from '@/hooks/useGsapReveal';
 
 export function PricingSection() {
+  const pricingRef = useGsapReveal<HTMLElement>({
+    selector: '[data-pricing-reveal]',
+    stagger: 0.15,
+    y: 30,
+  });
+
   const handleSelectPlan = () => {
     const form = document.querySelector('#trial-form');
     if (form) {
@@ -15,7 +22,7 @@ export function PricingSection() {
   };
 
   return (
-    <section id="plans" className="py-16 sm:py-20 lg:py-28 relative">
+    <section id="plans" ref={pricingRef} className="py-16 sm:py-20 lg:py-28 relative">
       <Container>
         {/* Dark Forest Green Unified Card Container */}
         <div className="bg-[#173F32] rounded-[32px] p-6 sm:p-10 lg:p-14 text-white shadow-2xl relative overflow-hidden">
@@ -56,11 +63,12 @@ export function PricingSection() {
           {/* 3 Pricing Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch relative z-10">
             {SUBSCRIPTION_PLANS.map((plan) => (
-              <PlanCard
-                key={plan.id}
-                plan={plan}
-                onSelectPlan={handleSelectPlan}
-              />
+              <div key={plan.id} data-pricing-reveal className="flex flex-col h-full">
+                <PlanCard
+                  plan={plan}
+                  onSelectPlan={handleSelectPlan}
+                />
+              </div>
             ))}
           </div>
 

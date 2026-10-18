@@ -54,7 +54,7 @@ To deliver an exceptional, production-grade landing page within the 48-hour time
 | **Phase 3** | Menu Catalog & Pricing Plans | P0 | 75 min | Phase 1 | **Completed** |
 | **Phase 4** | Supporting Content Sections | P1 | 60 min | Phase 2, 3 | **Completed** |
 | **Phase 5** | Free Trial Booking & Conversion | P0 | 75 min | Phase 1, 3 | **Completed** |
-| **Phase 6** | Animation, Responsive QA & a11y | P1 | 60 min | Phase 2–5 | **Not started** |
+| **Phase 6** | Animation, Responsive QA & a11y | P1 | 60 min | Phase 2–5 | **Completed** |
 | **Phase 7** | SEO, Testing & Production Polish | P0 | 45 min | Phase 2–6 | **Not started** |
 | **Phase 8** | Documentation, Git & Deployment | P0 | 45 min | Phase 7 | **Not started** |
 | **Total** | Full Implementation Cycle | — | **~7.5 hours** | — | **Not started** |
@@ -420,10 +420,10 @@ Integrate restrained GSAP ScrollTrigger reveals, ensure lifecycle cleanup, suppo
 - All section components (adding `data-reveal` or animation refs)
 
 ### Acceptance Criteria
-- [ ] GSAP context cleaned up deterministically; zero memory leaks or console warnings.
-- [ ] Reduced-motion mode completely disables motion transforms.
-- [ ] Zero horizontal scroll or overflow across all viewports (`390px`, `768px`, `1440px`).
-- [ ] All interactive elements accessible via keyboard.
+- [x] GSAP context cleaned up deterministically; zero memory leaks or console warnings.
+- [x] Reduced-motion mode completely disables motion transforms.
+- [x] Zero horizontal scroll or overflow across all viewports (`390px`, `768px`, `1440px`).
+- [x] All interactive elements accessible via keyboard.
 
 ### Verification Steps
 ```bash

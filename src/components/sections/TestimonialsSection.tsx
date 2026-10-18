@@ -5,10 +5,17 @@ import { Star } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { Badge } from '../ui/Badge';
 import { TESTIMONIALS_DATA } from '@/data/testimonials';
+import { useGsapReveal } from '@/hooks/useGsapReveal';
 
 export function TestimonialsSection() {
+  const reviewsRef = useGsapReveal<HTMLElement>({
+    selector: '[data-testimonial-reveal]',
+    stagger: 0.12,
+    y: 25,
+  });
+
   return (
-    <section id="reviews" className="py-16 sm:py-20 lg:py-28 relative">
+    <section id="reviews" ref={reviewsRef} className="py-16 sm:py-20 lg:py-28 relative">
       <Container>
         {/* Section Header */}
         <div className="flex flex-col items-center text-center space-y-3 mb-12 sm:mb-16">
@@ -26,6 +33,7 @@ export function TestimonialsSection() {
           {TESTIMONIALS_DATA.map((item) => (
             <div
               key={item.id}
+              data-testimonial-reveal
               className="bg-white rounded-3xl p-6 sm:p-7 border border-[#E3D8C4] shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
             >
               <div>

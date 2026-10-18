@@ -3,6 +3,7 @@
 import React from 'react';
 import { Leaf, Clock, Salad, Truck } from 'lucide-react';
 import { Container } from '../ui/Container';
+import { useGsapReveal } from '@/hooks/useGsapReveal';
 
 const BENEFITS = [
   {
@@ -36,8 +37,14 @@ const BENEFITS = [
 ];
 
 export function BenefitsSection() {
+  const benefitsRef = useGsapReveal<HTMLElement>({
+    selector: '[data-reveal]',
+    stagger: 0.12,
+    y: 24,
+  });
+
   return (
-    <section className="py-14 sm:py-16 lg:py-20 relative">
+    <section id="benefits" ref={benefitsRef} className="py-14 sm:py-16 lg:py-20 relative">
       <Container>
         {/* Centered Heading */}
         <div className="text-center mb-10 sm:mb-12">
@@ -56,6 +63,7 @@ export function BenefitsSection() {
             return (
               <div
                 key={idx}
+                data-reveal
                 className="bg-white rounded-3xl p-6 sm:p-7 border border-[#E3D8C4] shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group flex flex-col items-start text-left"
               >
                 {/* Icon Wrapper */}

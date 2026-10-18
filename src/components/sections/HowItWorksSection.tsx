@@ -4,6 +4,7 @@ import React from 'react';
 import { Utensils, ClipboardCheck, Truck, Smile } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { Badge } from '../ui/Badge';
+import { useGsapReveal } from '@/hooks/useGsapReveal';
 
 const STEPS = [
   {
@@ -41,8 +42,14 @@ const STEPS = [
 ];
 
 export function HowItWorksSection() {
+  const stepsRef = useGsapReveal<HTMLElement>({
+    selector: '[data-step-reveal]',
+    stagger: 0.15,
+    y: 25,
+  });
+
   return (
-    <section id="how-it-works" className="py-16 sm:py-20 lg:py-28 relative">
+    <section id="how-it-works" ref={stepsRef} className="py-16 sm:py-20 lg:py-28 relative">
       <Container>
         {/* Section Header */}
         <div className="flex flex-col items-center text-center space-y-3 mb-12 sm:mb-16">
@@ -66,6 +73,7 @@ export function HowItWorksSection() {
               return (
                 <div
                   key={idx}
+                  data-step-reveal
                   className="flex flex-col items-center text-center group"
                 >
                   {/* Step Number & Icon Circle */}

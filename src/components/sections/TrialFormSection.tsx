@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useSyncExternalStore } from 'react';
 import {
   Gift,
   CheckCircle2,
@@ -26,7 +26,18 @@ import {
   getMaxDateString,
 } from '@/utils/validation';
 
+const emptySubscribe = () => () => {};
+
 export function TrialFormSection() {
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+
+  const minDate = isClient ? getTomorrowDateString() : '';
+  const maxDate = isClient ? getMaxDateString(14) : '';
+
   const [formData, setFormData] = useState<TrialFormData>({
     fullName: '',
     mobile: '',
@@ -36,23 +47,10 @@ export function TrialFormSection() {
     customAreaNotes: '',
   });
 
-  const [minDate, setMinDate] = useState<string>('');
-  const [maxDate, setMaxDate] = useState<string>('');
   const [errors, setErrors] = useState<FormValidationErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [isWaitlistSubmission, setIsWaitlistSubmission] = useState(false);
-
-  useEffect(() => {
-    const tomorrow = getTomorrowDateString();
-    const max = getMaxDateString(14);
-    setMinDate(tomorrow);
-    setMaxDate(max);
-    setFormData((prev) => ({
-      ...prev,
-      deliveryDate: prev.deliveryDate || tomorrow,
-    }));
-  }, []);
 
   const isOutOfArea = formData.deliveryArea === 'other';
 
@@ -82,7 +80,7 @@ export function TrialFormSection() {
 
     // Only validate delivery date if within supported areas
     if (!isOutOfArea) {
-      const dateErr = validateDeliveryDate(formData.deliveryDate);
+      const dateErr = validateDeliveryDate(formData.deliveryDate || minDate);
       if (dateErr) newErrors.deliveryDate = dateErr;
     }
 
@@ -95,6 +93,10 @@ export function TrialFormSection() {
 
     if (!validateForm()) {
       return;
+    }
+
+    if (!formData.deliveryDate && minDate) {
+      setFormData((prev) => ({ ...prev, deliveryDate: minDate }));
     }
 
     setIsSubmitting(true);
@@ -115,7 +117,7 @@ export function TrialFormSection() {
       mobile: '',
       deliveryArea: '',
       foodPreference: 'veg',
-      deliveryDate: minDate,
+      deliveryDate: '',
       customAreaNotes: '',
     });
     setErrors({});
@@ -369,7 +371,7 @@ export function TrialFormSection() {
                     type="date"
                     min={minDate}
                     max={maxDate}
-                    value={formData.deliveryDate}
+                    value={formData.deliveryDate || minDate}
                     onChange={(e) =>
                       handleInputChange('deliveryDate', e.target.value)
                     }
@@ -457,7 +459,7 @@ export function TrialFormSection() {
               <div className="flex justify-between pt-0.5">
                 <span className="text-[#63786F] font-bold">Scheduled Date:</span>
                 <span className="font-extrabold text-[#F47738]">
-                  {formData.deliveryDate}
+                  {formData.deliveryDate || minDate}
                 </span>
               </div>
             )}

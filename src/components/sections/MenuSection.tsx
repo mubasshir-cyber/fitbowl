@@ -8,10 +8,17 @@ import { Button } from '../ui/Button';
 import { BowlCard } from '../ui/BowlCard';
 import { BOWLS_DATA } from '@/data/bowls';
 import { MenuFilterType } from '@/types/menu';
+import { useGsapReveal } from '@/hooks/useGsapReveal';
 
 export function MenuSection() {
   const [activeFilter, setActiveFilter] = useState<MenuFilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const menuRef = useGsapReveal<HTMLElement>({
+    selector: '[data-menu-reveal]',
+    stagger: 0.1,
+    y: 20,
+  });
 
   // Filter and search logic
   const filteredBowls = useMemo(() => {
@@ -48,10 +55,10 @@ export function MenuSection() {
   };
 
   return (
-    <section id="menu" className="py-16 sm:py-20 lg:py-28 relative">
+    <section id="menu" ref={menuRef} className="py-16 sm:py-20 lg:py-28 relative">
       <Container>
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center space-y-3 mb-10 sm:mb-12">
+        <div data-menu-reveal className="flex flex-col items-center text-center space-y-3 mb-10 sm:mb-12">
           <Badge variant="kicker">OUR MENU</Badge>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#173F32] tracking-tight">
             Explore Our 14 Bowls
@@ -63,7 +70,7 @@ export function MenuSection() {
         </div>
 
         {/* Toolbar: Dietary Filter Tabs & Search Input */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 sm:mb-10 bg-white/60 p-2 sm:p-3 rounded-2xl border border-[#E3D8C4] shadow-xs">
+        <div data-menu-reveal className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 sm:mb-10 bg-white/60 p-2 sm:p-3 rounded-2xl border border-[#E3D8C4] shadow-xs">
           {/* Dietary Segmented Filters */}
           <div className="flex items-center gap-1.5 p-1 bg-[#FFF7E8] rounded-xl border border-[#E3D8C4] w-full sm:w-auto">
             <button
