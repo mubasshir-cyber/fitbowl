@@ -198,6 +198,7 @@ export function MenuSection() {
   };
 
   const handleSelectForTrial = (_bowl: BowlItem) => {
+    void _bowl;
     setSelectedBowl(null);
     const form = document.querySelector('#trial-form');
     if (form) {
