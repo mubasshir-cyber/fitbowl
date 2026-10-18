@@ -51,7 +51,7 @@ To deliver an exceptional, production-grade landing page within the 48-hour time
 | **Phase 0** | Repository Audit & Planning | P0 | 45 min | None | **Completed** |
 | **Phase 1** | Foundation & Design System | P0 | 45 min | Phase 0 | **Completed** |
 | **Phase 2** | Navbar & Hero Section | P0 | 60 min | Phase 1 | **Completed** |
-| **Phase 3** | Menu Catalog & Pricing Plans | P0 | 75 min | Phase 1 | **Not started** |
+| **Phase 3** | Menu Catalog & Pricing Plans | P0 | 75 min | Phase 1 | **Completed** |
 | **Phase 4** | Supporting Content Sections | P1 | 60 min | Phase 2, 3 | **Not started** |
 | **Phase 5** | Free Trial Booking & Conversion | P0 | 75 min | Phase 1, 3 | **Not started** |
 | **Phase 6** | Animation, Responsive QA & a11y | P1 | 60 min | Phase 2–5 | **Not started** |
@@ -246,10 +246,10 @@ Implement all 14 signature bowls with dietary filters and live search, plus the 
 - `src/app/page.tsx`
 
 ### Acceptance Criteria
-- [ ] Exactly 14 bowls rendered; filtering by Veg yields 7 dishes, Non-Veg yields 7 dishes.
-- [ ] Mutton Keema Bowl displays `Fridays Only`.
-- [ ] Pricing matches exact figures: ₹1,450 (₹290/meal), ₹2,700 (₹270/meal), ₹5,000 (₹250/meal).
-- [ ] Regular plan visually emphasized as "Most Popular".
+- [x] Exactly 14 bowls rendered; filtering by Veg yields 7 dishes, Non-Veg yields 7 dishes.
+- [x] Mutton Keema Bowl displays `Fridays Only`.
+- [x] Pricing matches exact figures: ₹1,450 (₹290/meal), ₹2,700 (₹270/meal), ₹5,000 (₹250/meal).
+- [x] Regular plan visually emphasized as "Most Popular".
 
 ### Verification Steps
 ```bash

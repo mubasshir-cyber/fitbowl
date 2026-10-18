@@ -86,7 +86,7 @@ npm run lint
 - [x] **Phase 0 — Repository Audit & Planning:** Codebase audit, Next.js 16 build verification, vector logo generation, documentation baseline.
 - [x] **Phase 1 — Project Foundation & Design System:** Brand tokens (`#173F32`, `#F47738`, `#FFF7E8`, `#DCEBCF`), Google fonts, and shared UI primitives.
 - [x] **Phase 2 — Navbar & Hero Section:** Responsive navigation, official logo, hero headline, trust badges, dual CTAs, and hero food imagery.
-- [ ] **Phase 3 — Menu Catalog & Pricing Plans:** All 14 signature bowls with dietary filters/search and 3 subscription tiers.
+- [x] **Phase 3 — Menu Catalog & Pricing Plans:** All 14 signature bowls with dietary filters/search and 3 subscription tiers.
 - [ ] **Phase 4 — Supporting Content Sections:** Benefits, How It Works, 4 verified testimonials, newsletter, and 8 FAQs.
 - [ ] **Phase 5 — Free Trial Booking & Conversion:** Form validation, Sunday blocker, out-of-area waitlist routing, and simulated submission.
 - [ ] **Phase 6 — Animation, Responsive QA, Accessibility & Performance:** GSAP ScrollTrigger reveals, reduced motion, responsive QA (390px), and a11y.
