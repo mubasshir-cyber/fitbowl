@@ -99,38 +99,51 @@ export function TestimonialsSection() {
       if (isDesktop && trackRef.current && sectionRef.current) {
         const getDistance = () => {
           if (!trackRef.current) return 0;
-          return Math.max(0, trackRef.current.scrollWidth - window.innerWidth + 120);
+          const cards = trackRef.current.querySelectorAll('[data-editorial-card]');
+          if (!cards || cards.length === 0) return 0;
+          const lastCard = cards[cards.length - 1] as HTMLElement;
+          if (!lastCard) return 0;
+
+          const rightEdgeOfLastCard = lastCard.offsetLeft + lastCard.offsetWidth;
+          const rightMargin = Math.max(48, (window.innerWidth - 1280) / 2 + 32);
+          const targetViewportRight = window.innerWidth - rightMargin;
+
+          return Math.max(0, rightEdgeOfLastCard - targetViewportRight);
         };
 
-        gsap.to(trackRef.current, {
-          x: () => -getDistance(),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            pin: true,
-            start: 'top top',
-            end: () => `+=${getDistance() + 200}`,
-            scrub: 1,
-            invalidateOnRefresh: true,
-            anticipatePin: 1,
-            fastScrollEnd: true,
-          },
-        });
+        const distance = getDistance();
 
-        // Animation C — Restrained parallax on food images during horizontal traversal
-        const foodImages = trackRef.current.querySelectorAll('.editorial-food-img');
-        if (foodImages.length > 0) {
-          gsap.to(foodImages, {
-            x: -20,
+        if (distance > 0) {
+          gsap.to(trackRef.current, {
+            x: () => -getDistance(),
             ease: 'none',
             scrollTrigger: {
               trigger: sectionRef.current,
+              pin: true,
               start: 'top top',
-              end: () => `+=${getDistance() + 200}`,
-              scrub: 1.2,
+              end: () => `+=${getDistance() + 100}`,
+              scrub: 1,
+              invalidateOnRefresh: true,
+              anticipatePin: 1,
               fastScrollEnd: true,
             },
           });
+
+          // Animation C — Restrained parallax on food images during horizontal traversal
+          const foodImages = trackRef.current.querySelectorAll('.editorial-food-img');
+          if (foodImages.length > 0) {
+            gsap.to(foodImages, {
+              x: -20,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top top',
+                end: () => `+=${getDistance() + 100}`,
+                scrub: 1.2,
+                fastScrollEnd: true,
+              },
+            });
+          }
         }
       }
     }, sectionRef);
@@ -219,7 +232,7 @@ export function TestimonialsSection() {
       >
         <div
           ref={trackRef}
-          className="flex items-center gap-6 xl:gap-8 pl-[max(2rem,calc((100vw-1280px)/2+2rem))] pr-24 w-max will-change-transform"
+          className="flex items-center gap-6 xl:gap-8 pl-[max(2rem,calc((100vw-1280px)/2+2rem))] pr-8 lg:pr-12 w-max will-change-transform"
         >
           {TESTIMONIALS_DATA.map((item) => {
             const isLong = item.quote.length > 140;
