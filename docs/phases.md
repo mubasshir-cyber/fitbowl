@@ -49,7 +49,7 @@ To deliver an exceptional, production-grade landing page within the 48-hour time
 | Phase | Title | Priority | Active Effort | Dependencies | Status |
 |---|---|---|---|---|---|
 | **Phase 0** | Repository Audit & Planning | P0 | 45 min | None | **Completed** |
-| **Phase 1** | Foundation & Design System | P0 | 45 min | Phase 0 | **Not started** |
+| **Phase 1** | Foundation & Design System | P0 | 45 min | Phase 0 | **Completed** |
 | **Phase 2** | Navbar & Hero Section | P0 | 60 min | Phase 1 | **Not started** |
 | **Phase 3** | Menu Catalog & Pricing Plans | P0 | 75 min | Phase 1 | **Not started** |
 | **Phase 4** | Supporting Content Sections | P1 | 60 min | Phase 2, 3 | **Not started** |
@@ -134,10 +134,10 @@ Configure brand tokens, typography, global layout styles, and shared UI primitiv
 - `src/components/ui/Button.tsx`, `src/components/ui/Badge.tsx`
 
 ### Acceptance Criteria
-- [ ] Both Google fonts load with zero layout shift (CLS = 0).
-- [ ] Tailwind utility classes reference official brand token variables.
-- [ ] Types compile without errors (`npx tsc --noEmit`).
-- [ ] Background displays `#FFF7E8` and text renders `#173F32`.
+- [x] Both Google fonts load with zero layout shift (CLS = 0).
+- [x] Tailwind utility classes reference official brand token variables.
+- [x] Types compile without errors (`npx tsc --noEmit`).
+- [x] Background displays `#FFF7E8` and text renders `#173F32`.
 
 ### Verification Steps
 ```bash
