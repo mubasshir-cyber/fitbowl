@@ -7,6 +7,8 @@ import { HowItWorksSection } from '@/components/sections/HowItWorksSection';
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
 import { NewsletterSection } from '@/components/sections/NewsletterSection';
 import { FAQSection } from '@/components/sections/FAQSection';
+import { TrialFormSection } from '@/components/sections/TrialFormSection';
+import { MobileStickyCTA } from '@/components/ui/MobileStickyCTA';
 
 export default function Home() {
   return (
@@ -39,7 +41,14 @@ export default function Home() {
 
         {/* 09. Frequently Asked Questions (8 Questions Accordion) */}
         <FAQSection />
+
+        {/* 10. Free Trial Booking Form (Interactive Validation & Area Check) */}
+        <TrialFormSection />
       </main>
+
+      {/* Mobile Sticky Action Bar */}
+      <MobileStickyCTA />
     </div>
   );
 }
+

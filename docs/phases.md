@@ -53,7 +53,7 @@ To deliver an exceptional, production-grade landing page within the 48-hour time
 | **Phase 2** | Navbar & Hero Section | P0 | 60 min | Phase 1 | **Completed** |
 | **Phase 3** | Menu Catalog & Pricing Plans | P0 | 75 min | Phase 1 | **Completed** |
 | **Phase 4** | Supporting Content Sections | P1 | 60 min | Phase 2, 3 | **Completed** |
-| **Phase 5** | Free Trial Booking & Conversion | P0 | 75 min | Phase 1, 3 | **Not started** |
+| **Phase 5** | Free Trial Booking & Conversion | P0 | 75 min | Phase 1, 3 | **Completed** |
 | **Phase 6** | Animation, Responsive QA & a11y | P1 | 60 min | Phase 2–5 | **Not started** |
 | **Phase 7** | SEO, Testing & Production Polish | P0 | 45 min | Phase 2–6 | **Not started** |
 | **Phase 8** | Documentation, Git & Deployment | P0 | 45 min | Phase 7 | **Not started** |
@@ -361,12 +361,12 @@ Build the Free Trial Booking Form with client-side validation, delivery area rou
 - `src/app/page.tsx`
 
 ### Acceptance Criteria
-- [ ] Form rejects invalid phone numbers (e.g. non-10 digit or non-Indian start digit).
-- [ ] Sunday delivery dates cannot be selected.
-- [ ] Selecting "Other" dynamically pivots to the waitlist flow.
-- [ ] Loading spinner displays for 1.2s on submit.
-- [ ] Success modal explicitly states the demo/simulation status.
-- [ ] Mobile sticky bottom bar functions on small viewports.
+- [x] Form rejects invalid phone numbers (e.g. non-10 digit or non-Indian start digit).
+- [x] Sunday delivery dates cannot be selected.
+- [x] Selecting "Other" dynamically pivots to the waitlist flow.
+- [x] Loading spinner displays for 1.2s on submit.
+- [x] Success modal explicitly states the demo/simulation status.
+- [x] Mobile sticky bottom bar functions on small viewports.
 
 ### Verification Steps
 ```bash
