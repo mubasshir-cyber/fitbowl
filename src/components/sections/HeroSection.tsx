@@ -1,231 +1,458 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
-import {
-  ArrowRight,
-  Play,
-  Gift,
-  ChefHat,
-  Truck,
-  Leaf,
-} from 'lucide-react';
+import { ArrowRight, CheckCircle } from 'lucide-react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '../ui/Container';
-import { Button } from '../ui/Button';
-import { Badge } from '../ui/Badge';
-import { useGsapReveal } from '@/hooks/useGsapReveal';
-import { LeafSprigLeft, LeafSprigRight } from '../ui/FoliageDecor';
 
-const TRUST_BADGES = [
-  {
-    icon: Gift,
-    title: 'One meal free',
-    subtitle: 'No card needed',
-  },
-  {
-    icon: ChefHat,
-    title: 'Freshly prepared',
-    subtitle: 'Every day',
-  },
-  {
-    icon: Truck,
-    title: 'Delivered to your',
-    subtitle: 'Home or office',
-  },
-  {
-    icon: Leaf,
-    title: 'No artificial stuff',
-    subtitle: 'Just real food',
-  },
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+const TRUST_POINTS = [
+  'One meal free — no card needed.',
+  'Freshly prepared every day.',
+  'Delivered to your home or office.',
 ];
 
 export function HeroSection() {
-  const heroRef = useGsapReveal<HTMLElement>({
-    selector: '[data-hero-reveal]',
-    stagger: 0.1,
-    y: 20,
-    duration: 0.6,
-  });
+  const sectionRef = useRef<HTMLElement>(null);
+  const eyebrowRef = useRef<HTMLDivElement>(null);
+  const headlineLine1Ref = useRef<HTMLDivElement>(null);
+  const headlineLine2Ref = useRef<HTMLDivElement>(null);
+  const tasteWordRef = useRef<HTMLSpanElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const primaryCtaRef = useRef<HTMLButtonElement>(null);
+  const secondaryCtaRef = useRef<HTMLButtonElement>(null);
+  const trustRef = useRef<HTMLUListElement>(null);
+  const imageWrapRef = useRef<HTMLDivElement>(null);
+  const imageSrcRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const botanicalLeftRef = useRef<HTMLDivElement>(null);
+  const botanicalRightRef = useRef<HTMLDivElement>(null);
 
-  const scrollToSection = (id: string) => {
+  const scrollTo = (id: string) => {
     const el = document.querySelector(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ctx = gsap.context(() => {
+      // --- Set everything invisible at start ---
+      const allTargets = [
+        eyebrowRef.current,
+        headlineLine1Ref.current,
+        headlineLine2Ref.current,
+        subtitleRef.current,
+        primaryCtaRef.current,
+        secondaryCtaRef.current,
+        imageWrapRef.current,
+        badgeRef.current,
+        botanicalLeftRef.current,
+        botanicalRightRef.current,
+      ].filter(Boolean);
+
+      const trustItems = trustRef.current
+        ? Array.from(trustRef.current.querySelectorAll('[data-trust-item]'))
+        : [];
+
+      if (prefersReduced) {
+        // Reduced motion: just ensure everything is visible immediately
+        gsap.set([...allTargets, ...trustItems], { opacity: 1, y: 0, scale: 1, clipPath: 'none' });
+        return;
+      }
+
+      // Initial hidden states
+      gsap.set(eyebrowRef.current, { opacity: 0, y: 14 });
+      gsap.set(headlineLine1Ref.current, { clipPath: 'inset(0 0 100% 0)', y: 8 });
+      gsap.set(headlineLine2Ref.current, { clipPath: 'inset(0 0 100% 0)', y: 8 });
+      gsap.set(tasteWordRef.current, { opacity: 0.4 });
+      gsap.set(subtitleRef.current, { opacity: 0, y: 12 });
+      gsap.set(primaryCtaRef.current, { opacity: 0, y: 10 });
+      gsap.set(secondaryCtaRef.current, { opacity: 0, y: 10 });
+      gsap.set(trustItems, { opacity: 0, y: 10 });
+      gsap.set(imageWrapRef.current, { opacity: 0, scale: 0.94, y: 20 });
+      gsap.set(badgeRef.current, { opacity: 0, y: 12, scale: 0.96 });
+      gsap.set(botanicalLeftRef.current, { opacity: 0, x: -18 });
+      gsap.set(botanicalRightRef.current, { opacity: 0, x: 18 });
+
+      // --- Master entrance timeline ---
+      const tl = gsap.timeline({ delay: 0.1, defaults: { ease: 'power3.out' } });
+
+      // 1. Eyebrow pill
+      tl.to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.45 });
+
+      // 2. Headline line 1 clip-path reveal
+      tl.to(
+        headlineLine1Ref.current,
+        { clipPath: 'inset(0 0 0% 0)', y: 0, duration: 0.55 },
+        '-=0.15'
+      );
+
+      // 3. Headline line 2 (slightly staggered)
+      tl.to(
+        headlineLine2Ref.current,
+        { clipPath: 'inset(0 0 0% 0)', y: 0, duration: 0.55 },
+        '-=0.38'
+      );
+
+      // 4. Orange "taste" emphasis — delayed pop after line 2 lands
+      tl.to(tasteWordRef.current, { opacity: 1, duration: 0.3 }, '-=0.1');
+
+      // 5. Food image entrance
+      tl.to(
+        imageWrapRef.current,
+        { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: 'power2.out' },
+        '-=0.6'
+      );
+
+      // 6. Supporting badge
+      tl.to(badgeRef.current, { opacity: 1, y: 0, scale: 1, duration: 0.4 }, '-=0.3');
+
+      // 7. Subtitle
+      tl.to(subtitleRef.current, { opacity: 1, y: 0, duration: 0.45 }, '-=0.35');
+
+      // 8. CTAs
+      tl.to(primaryCtaRef.current, { opacity: 1, y: 0, duration: 0.4 }, '-=0.25');
+      tl.to(secondaryCtaRef.current, { opacity: 1, y: 0, duration: 0.35 }, '-=0.22');
+
+      // 9. Trust points stagger
+      tl.to(trustItems, { opacity: 1, y: 0, duration: 0.38, stagger: 0.1 }, '-=0.15');
+
+      // 10. Botanicals
+      tl.to(
+        [botanicalLeftRef.current, botanicalRightRef.current],
+        { opacity: 1, x: 0, duration: 0.5, stagger: 0.08 },
+        '-=0.4'
+      );
+
+      // --- Scroll-linked parallax for food image (subtle) ---
+      if (imageSrcRef.current && sectionRef.current) {
+        gsap.to(imageSrcRef.current, {
+          yPercent: -7,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1.4,
+          },
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
       id="top"
-      ref={heroRef}
-      className="relative pt-24 sm:pt-28 lg:pt-36 pb-14 sm:pb-20 lg:pb-28 overflow-hidden"
+      ref={sectionRef}
+      aria-label="FitBowl Hero — Healthy Meal Subscription Mumbai"
+      className="relative min-h-screen flex items-center pt-20 sm:pt-24 lg:pt-0 pb-12 sm:pb-16 lg:pb-0 overflow-hidden bg-[#FFF7E8]"
     >
-      {/* Decorative Organic Foliage Margins matching wireframe */}
-      <LeafSprigLeft className="-left-4 top-20 hidden md:block" />
-      <LeafSprigRight className="-right-4 top-12 hidden md:block" />
+      {/* ── Background organic shapes ── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        {/* Large cream-green wash — top left */}
+        <div className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-[#DCEBCF]/35 blur-[90px]" />
+        {/* Warm orange accent — right */}
+        <div className="absolute top-1/4 right-0 translate-x-1/3 w-[520px] h-[520px] rounded-full bg-[#F47738]/8 blur-[80px]" />
+        {/* Tiny lower-left leaf wash */}
+        <div className="absolute bottom-0 left-1/4 w-72 h-72 rounded-full bg-[#DCEBCF]/25 blur-[60px]" />
+      </div>
 
-      {/* Subtle organic background foliage accents */}
-      <div className="absolute top-12 left-0 -translate-x-1/2 w-72 h-72 rounded-full bg-[#DCEBCF]/40 blur-3xl -z-10 pointer-events-none" />
-      <div className="absolute top-1/3 right-0 translate-x-1/3 w-96 h-96 rounded-full bg-[#F47738]/10 blur-3xl -z-10 pointer-events-none" />
+      {/* ── Botanical SVG – left margin ── */}
+      <div
+        ref={botanicalLeftRef}
+        aria-hidden="true"
+        className="pointer-events-none select-none absolute left-0 top-32 hidden xl:block z-0"
+        style={{ opacity: 0 }}
+      >
+        <svg width="110" height="220" viewBox="0 0 110 220" fill="none">
+          <path d="M8 210 Q32 140 46 16" stroke="#3E6B4F" strokeWidth="2" strokeLinecap="round" />
+          <path d="M18 182C3 167 8 152 28 169 28 169 24 182 18 182Z" fill="#4F8562" />
+          <path d="M24 175C44 162 44 147 30 166 30 166 24 175 24 175Z" fill="#5B9A71" />
+          <path d="M28 147C11 132 16 117 36 134 36 134 32 147 28 147Z" fill="#4F8562" />
+          <path d="M34 139C56 127 56 112 40 131 40 131 34 139 34 139Z" fill="#6EAE85" />
+          <path d="M38 108C22 93 26 78 44 95 44 95 41 108 38 108Z" fill="#3E6B4F" />
+          <path d="M42 101C64 88 64 73 49 93 49 93 42 101 42 101Z" fill="#5B9A71" />
+          <path d="M46 72C30 57 34 42 52 59 52 59 49 72 46 72Z" fill="#4F8562" />
+          <path d="M50 65C72 52 72 37 56 57 56 57 50 65 50 65Z" fill="#6EAE85" />
+          <path d="M46 16C38 1 54 1 46 16Z" fill="#5B9A71" />
+        </svg>
+      </div>
 
-      <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-          {/* Left Column: Copy & Value Proposition (7 cols on lg) */}
-          <div className="lg:col-span-7 flex flex-col items-start space-y-6 sm:space-y-7 text-left">
-            {/* Location Pill */}
-            <div data-hero-reveal>
-              <Badge variant="kicker">FRESH BOWLS • MUMBAI</Badge>
+      {/* ── Botanical SVG – right margin ── */}
+      <div
+        ref={botanicalRightRef}
+        aria-hidden="true"
+        className="pointer-events-none select-none absolute right-0 top-16 hidden xl:block z-0"
+        style={{ opacity: 0 }}
+      >
+        <svg width="90" height="200" viewBox="0 0 90 200" fill="none">
+          <path d="M82 195 Q60 128 50 10" stroke="#385F45" strokeWidth="2" strokeLinecap="round" />
+          <path d="M72 170C87 155 82 140 62 157 62 157 66 170 72 170Z" fill="#3E6B4F" />
+          <path d="M66 163C47 150 47 135 60 154 60 154 66 163 66 163Z" fill="#4F8562" />
+          <path d="M62 135C77 120 72 105 52 122 52 122 56 135 62 135Z" fill="#4F8562" />
+          <path d="M56 128C37 115 37 100 50 119 50 119 56 128 56 128Z" fill="#5B9A71" />
+          <path d="M54 96C68 81 63 66 45 83 45 83 48 96 54 96Z" fill="#3E6B4F" />
+          <path d="M50 10C58-5 42-5 50 10Z" fill="#5B9A71" />
+        </svg>
+      </div>
+
+      <Container size="wide">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] lg:gap-0 items-center min-h-[calc(100vh-80px)] lg:min-h-screen">
+
+          {/* ─────────── LEFT COLUMN ─────────── */}
+          <div className="flex flex-col items-start justify-center py-12 lg:py-20 lg:pr-12 xl:pr-20 max-w-2xl lg:max-w-none">
+
+            {/* Eyebrow */}
+            <div ref={eyebrowRef} style={{ opacity: 0 }}>
+              <span className="inline-flex items-center gap-2 text-[11px] sm:text-xs uppercase tracking-[0.2em] font-extrabold text-[#173F32] bg-[#DCEBCF] px-4 py-1.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#F47738] animate-pulse" />
+                Fresh Bowls · Mumbai
+              </span>
             </div>
 
-            {/* H1 Headline */}
-            <h1
-              data-hero-reveal
-              className="text-4xl sm:text-5xl lg:text-[62px] font-extrabold text-[#173F32] leading-[1.08] tracking-tight"
-            >
-              Healthy doesn&apos;t have to{' '}
-              <span className="text-[#F47738] inline-block relative">
-                taste
-                <svg
-                  className="absolute -bottom-1 left-0 w-full h-2.5 text-[#F47738]/30"
-                  viewBox="0 0 100 12"
-                  preserveAspectRatio="none"
-                  fill="none"
-                >
-                  <path
-                    d="M2 9C25 3 75 3 98 9"
-                    stroke="currentColor"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>{' '}
-              healthy.
+            {/* Headline — two lines for clip-path reveal */}
+            <h1 className="mt-5 sm:mt-6 font-black text-[#173F32] leading-[1.05] tracking-tight" aria-label="Healthy doesn't have to taste healthy.">
+              {/* Line 1 */}
+              <div
+                ref={headlineLine1Ref}
+                className="block overflow-hidden"
+                style={{ clipPath: 'inset(0 0 100% 0)' }}
+              >
+                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[72px]">
+                  Healthy doesn&apos;t have to
+                </span>
+              </div>
+
+              {/* Line 2 — includes orange "taste" */}
+              <div
+                ref={headlineLine2Ref}
+                className="block overflow-hidden"
+                style={{ clipPath: 'inset(0 0 100% 0)' }}
+              >
+                <span className="flex flex-wrap items-baseline gap-x-3 sm:gap-x-4 text-4xl sm:text-5xl md:text-6xl lg:text-[64px] xl:text-[72px]">
+                  <span
+                    ref={tasteWordRef}
+                    className="relative inline-block text-[#F47738]"
+                    style={{ opacity: 0.4 }}
+                  >
+                    taste
+                    {/* Animated underline drawn in SVG */}
+                    <svg
+                      aria-hidden="true"
+                      className="absolute -bottom-1 left-0 w-full overflow-visible"
+                      viewBox="0 0 100 10"
+                      preserveAspectRatio="none"
+                      fill="none"
+                    >
+                      <path
+                        d="M1 7 Q25 2 50 6 Q75 10 99 5"
+                        stroke="#F47738"
+                        strokeOpacity="0.35"
+                        strokeWidth="3.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </span>
+                  <span className="text-[#173F32]">healthy.</span>
+                </span>
+              </div>
             </h1>
 
             {/* Subtitle */}
             <p
-              data-hero-reveal
-              className="text-lg sm:text-xl text-[#334A40] font-medium leading-relaxed max-w-xl"
+              ref={subtitleRef}
+              className="mt-5 sm:mt-6 text-base sm:text-lg lg:text-xl text-[#334A40] font-medium leading-relaxed max-w-lg"
+              style={{ opacity: 0 }}
             >
-              Delicious, freshly prepared gourmet bowls delivered to your home
-              or office in Mumbai.
+              Delicious, freshly prepared bowls delivered to your home or office.
             </p>
 
-            {/* Trust Strip (4 items) */}
-            <div
-              data-hero-reveal
-              className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full py-1"
-            >
-              {TRUST_BADGES.map((badge, idx) => {
-                const IconComponent = badge.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-2.5 p-2.5 sm:p-3 rounded-2xl bg-white/70 border border-[#E3D8C4] shadow-xs hover:border-[#173F32]/30 transition-colors"
-                  >
-                    <div className="w-8 h-8 rounded-full bg-[#DCEBCF] text-[#173F32] flex items-center justify-center shrink-0 mt-0.5">
-                      <IconComponent className="w-4 h-4 text-[#173F32]" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-xs sm:text-[13px] font-extrabold text-[#173F32] leading-tight">
-                        {badge.title}
-                      </span>
-                      <span className="text-[11px] text-[#63786F] font-medium leading-tight mt-0.5">
-                        {badge.subtitle}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Dual CTAs Cluster */}
-            <div
-              data-hero-reveal
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2 w-full sm:w-auto"
-            >
-              {/* Primary Trial CTA */}
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={() => scrollToSection('#trial-form')}
-                className="group shadow-lg text-base font-extrabold px-8 py-4 rounded-full"
+            {/* CTAs */}
+            <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+              <button
+                ref={primaryCtaRef}
+                type="button"
+                onClick={() => scrollTo('#trial-form')}
+                aria-label="Claim your free trial meal — scroll to booking form"
+                className="group inline-flex items-center justify-center gap-2.5 bg-[#F47738] text-white font-extrabold text-sm sm:text-base px-7 py-3.5 sm:px-8 sm:py-4 rounded-full shadow-[0_6px_24px_rgba(244,119,56,0.38)] hover:bg-[#E06324] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(244,119,56,0.5)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F47738] focus-visible:ring-offset-2 active:scale-[0.98] transition-all duration-200 cursor-pointer select-none"
+                style={{ opacity: 0 }}
               >
                 <span>Claim Your Free Trial Meal</span>
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Button>
+                <ArrowRight
+                  className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </button>
 
-              {/* Secondary Video / How It Works CTA */}
               <button
+                ref={secondaryCtaRef}
                 type="button"
-                onClick={() => scrollToSection('#how-it-works')}
-                className="inline-flex items-center justify-center gap-3 px-5 py-3 rounded-full bg-white/60 hover:bg-white border border-[#E3D8C4] text-[#173F32] transition-all hover:border-[#173F32] group cursor-pointer"
+                onClick={() => scrollTo('#how-it-works')}
+                aria-label="Watch how FitBowl works"
+                className="group inline-flex items-center justify-center gap-3 px-5 sm:px-6 py-3.5 sm:py-4 rounded-full border border-[#D4C8B4] bg-white/70 hover:bg-white hover:border-[#173F32]/40 text-[#173F32] font-semibold text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[#173F32] focus-visible:ring-offset-2 active:scale-[0.98] transition-all duration-200 cursor-pointer select-none"
+                style={{ opacity: 0 }}
               >
-                <div className="w-8 h-8 rounded-full bg-[#173F32] text-white flex items-center justify-center group-hover:bg-[#F47738] transition-colors shadow-xs">
-                  <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
-                </div>
-                <div className="text-left flex flex-col">
-                  <span className="text-xs sm:text-sm font-bold text-[#173F32] leading-none">
-                    Watch How It Works
-                  </span>
-                  <span className="text-[10px] sm:text-xs text-[#63786F] font-medium leading-none mt-1">
-                    01:30 min
-                  </span>
-                </div>
+                {/* Animated play circle */}
+                <span className="relative w-8 h-8 rounded-full bg-[#173F32] flex items-center justify-center shrink-0 group-hover:bg-[#F47738] transition-colors duration-200 shadow-sm">
+                  <svg
+                    className="w-3 h-3 text-white fill-current ml-0.5"
+                    viewBox="0 0 12 14"
+                    aria-hidden="true"
+                  >
+                    <path d="M1 1.5L11 7L1 12.5V1.5Z" />
+                  </svg>
+                </span>
+                <span className="flex flex-col items-start leading-none gap-0.5">
+                  <span className="font-bold text-[#173F32]">Watch How It Works</span>
+                  <span className="text-[11px] text-[#63786F] font-medium">1 min overview</span>
+                </span>
               </button>
             </div>
+
+            {/* Trust points */}
+            <ul
+              ref={trustRef}
+              className="mt-6 sm:mt-7 flex flex-col gap-2"
+              aria-label="Why FitBowl"
+            >
+              {TRUST_POINTS.map((point, i) => (
+                <li
+                  key={i}
+                  data-trust-item
+                  className="flex items-center gap-2.5 text-sm text-[#334A40] font-medium"
+                  style={{ opacity: 0 }}
+                >
+                  <CheckCircle
+                    className="w-4 h-4 text-[#173F32] shrink-0"
+                    aria-hidden="true"
+                    strokeWidth={2.2}
+                  />
+                  {point}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Right Column: Hero Visual Food Bowl & Floating Badges (5 cols on lg) */}
+          {/* ─────────── RIGHT COLUMN — food image ─────────── */}
           <div
-            data-hero-reveal
-            className="lg:col-span-5 relative flex justify-center items-center mt-4 lg:mt-0"
+            ref={imageWrapRef}
+            className="relative flex justify-center items-center lg:justify-end py-8 lg:py-16 lg:pl-6"
+            style={{ opacity: 0, scale: 0.94 }}
           >
-            {/* Center Bowl Circular Glow Backdrop */}
-            <div className="absolute w-[290px] h-[290px] sm:w-[380px] sm:h-[380px] lg:w-[440px] lg:h-[440px] rounded-full bg-linear-to-tr from-[#DCEBCF] to-[#FFE2C2] opacity-70 blur-xl -z-10" />
+            {/* Glow backdrop */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 flex items-center justify-center"
+            >
+              <div className="w-[360px] h-[360px] sm:w-[440px] sm:h-[440px] lg:w-[520px] lg:h-[520px] xl:w-[580px] xl:h-[580px] rounded-full bg-gradient-to-br from-[#DCEBCF]/70 via-[#FFF0DC]/50 to-transparent blur-[50px]" />
+            </div>
 
-            {/* Bowl Container with subtle float effect */}
-            <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] lg:w-[450px] lg:h-[450px] drop-shadow-2xl transition-transform duration-500 hover:scale-102">
-              <Image
-                src="/images/hero/hero-bowl.jpg"
-                alt="FitBowl Gourmet Healthy Meal Bowl with Grilled Paneer, Avocado, Chickpeas, and Fresh Greens"
-                fill
-                priority
-                sizes="(max-width: 640px) 300px, (max-width: 1024px) 380px, 450px"
-                className="object-cover rounded-full border-4 border-white shadow-2xl"
-              />
+            {/* Parallax-linked image container */}
+            <div
+              ref={imageSrcRef}
+              className="relative z-10"
+            >
+              {/* Main image */}
+              <div className="relative w-[300px] h-[300px] sm:w-[380px] sm:h-[380px] md:w-[430px] md:h-[430px] lg:w-[480px] lg:h-[480px] xl:w-[540px] xl:h-[540px]">
+                {/* Outer botanical ring — SVG clip decoration */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -inset-4 sm:-inset-5 rounded-full border border-[#DCEBCF]/60 pointer-events-none z-0"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute -inset-8 sm:-inset-10 rounded-full border border-[#DCEBCF]/30 pointer-events-none z-0"
+                />
 
-              {/* Floating Badge 1 (Top-Right): "Real Ingredients Real Flavours" with handwritten flair matching wireframe */}
-              <div className="absolute -top-6 -right-4 sm:-top-8 sm:right-2 z-20 pointer-events-none select-none">
-                <div className="text-right">
-                  <p className="font-script text-2xl sm:text-3xl text-[#173F32] font-bold leading-tight rotate-3 drop-shadow-sm">
-                    Real Ingredients
+                {/* Photo */}
+                <Image
+                  src="/images/hero/hero-bowl.jpg"
+                  alt="FitBowl — Gourmet healthy meal bowl with grilled paneer, avocado, chickpeas, cherry tomatoes, fresh greens, and brown rice"
+                  fill
+                  priority
+                  sizes="(max-width: 640px) 300px, (max-width: 768px) 380px, (max-width: 1024px) 430px, (max-width: 1280px) 480px, 540px"
+                  className="object-cover rounded-full shadow-[0_24px_80px_rgba(23,63,50,0.18)] ring-[5px] ring-white"
+                />
+
+                {/* Ingredient dots — decorative botanical sprigs around the image */}
+                <BotanicalSprig position="topLeft" />
+                <BotanicalSprig position="bottomRight" />
+
+                {/* "Real ingredients. Real flavours." badge */}
+                <div
+                  ref={badgeRef}
+                  className="absolute -top-2 sm:-top-4 -right-3 sm:-right-5 z-20"
+                  style={{ opacity: 0 }}
+                >
+                  <div className="bg-white border border-[#E3D8C4] rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl rotate-2 hover:rotate-0 transition-transform duration-300">
+                    <p className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-[#173F32] leading-tight">
+                      Real ingredients.
+                    </p>
+                    <p className="text-[11px] sm:text-xs font-extrabold text-[#F47738] leading-tight mt-0.5 flex items-center gap-1">
+                      Real flavours.
+                      <span aria-hidden="true">✦</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Macro pill — bottom left */}
+                <div
+                  aria-hidden="true"
+                  className="absolute -bottom-3 sm:-bottom-5 -left-3 sm:-left-6 z-20 bg-[#173F32] text-white rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 shadow-xl -rotate-2"
+                >
+                  <p className="text-[10px] sm:text-[11px] font-black text-[#DCEBCF] uppercase tracking-wider leading-none">
+                    From
                   </p>
-                  <p className="font-script text-2xl sm:text-3xl text-[#173F32] font-bold leading-tight rotate-3 drop-shadow-sm flex items-center justify-end gap-1">
-                    <span>Real Flavours</span>
-                    <svg className="w-5 h-5 text-[#F47738] inline-block -rotate-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M12 2L15 8L22 9L17 14L18 21L12 17L6 21L7 14L2 9L9 8L12 2Z" />
-                    </svg>
+                  <p className="text-lg sm:text-xl font-black text-[#FFF7E8] leading-none mt-0.5">
+                    430 kcal
+                  </p>
+                  <p className="text-[10px] sm:text-[11px] font-semibold text-[#DCEBCF]/80 leading-none mt-0.5">
+                    macro-balanced
                   </p>
                 </div>
-              </div>
-
-              {/* Floating Badge 2 (Bottom-Right): "Good Food Busy Life Sorted!" as Dark Green Circular Badge */}
-              <div className="absolute -bottom-4 right-1 sm:-bottom-6 sm:right-2 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#173F32] text-white border-2 border-white/80 shadow-2xl flex flex-col items-center justify-center p-2 text-center -rotate-6 transition-transform hover:rotate-0 z-20">
-                <p className="font-script text-base sm:text-lg text-[#FFF7E8] font-bold leading-none">
-                  Good Food
-                </p>
-                <p className="font-script text-xs sm:text-sm text-[#DCEBCF] leading-tight">
-                  Busy Life
-                </p>
-                <p className="font-script text-base sm:text-lg text-[#F47738] font-black leading-none mt-0.5">
-                  Sorted!
-                </p>
               </div>
             </div>
           </div>
         </div>
       </Container>
     </section>
+  );
+}
+
+/* ── Small decorative botanical sprig SVGs ── */
+type SprigPosition = 'topLeft' | 'bottomRight';
+
+function BotanicalSprig({ position }: { position: SprigPosition }) {
+  const positionClasses: Record<SprigPosition, string> = {
+    topLeft: '-top-8 -left-10 rotate-[-20deg]',
+    bottomRight: '-bottom-8 -right-10 rotate-[160deg]',
+  };
+
+  return (
+    <div
+      aria-hidden="true"
+      className={`pointer-events-none select-none absolute z-0 opacity-75 ${positionClasses[position]}`}
+    >
+      <svg width="64" height="96" viewBox="0 0 64 96" fill="none">
+        <path d="M32 92 Q34 60 32 4" stroke="#4F8562" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M32 76C20 66 19 52 32 64 32 64 32 76 32 76Z" fill="#5B9A71" />
+        <path d="M32 76C44 66 45 52 32 64Z" fill="#4F8562" />
+        <path d="M32 56C20 46 19 32 32 44 32 44 32 56 32 56Z" fill="#6EAE85" />
+        <path d="M32 56C44 46 45 32 32 44Z" fill="#5B9A71" />
+        <path d="M32 38C22 28 21 16 32 26Z" fill="#4F8562" />
+        <path d="M32 38C42 28 43 16 32 26Z" fill="#6EAE85" />
+        <circle cx="32" cy="6" r="3" fill="#F47738" opacity="0.5" />
+      </svg>
+    </div>
   );
 }
