@@ -8,9 +8,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 520,
       protein: 28,
+      carbs: 48,
+      fats: 22,
+      fiber: 7,
     },
-    ingredients: 'Grilled paneer, brown rice, peri peri sauce, charred corn.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Grilled paneer, brown rice, peri peri sauce, charred corn',
+    ingredientList: ['Grilled Paneer', 'Brown Rice', 'Peri Peri Sauce', 'Charred Corn'],
+    image: '/images/bowls/peri-peri-paneer.jpg',
+    detailedDescription:
+      'Protein-rich grilled paneer cubes seared with fiery African bird’s eye peri-peri marinade, served alongside fiber-rich brown rice, sweet charred corn, and aromatic herbs.',
   },
   {
     id: 'butter-chicken-lite',
@@ -19,9 +25,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 560,
       protein: 38,
+      carbs: 44,
+      fats: 18,
+      fiber: 5,
     },
-    ingredients: 'Lighter butter chicken, jeera rice, cucumber raita.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Lighter butter chicken, jeera rice, cucumber raita',
+    ingredientList: ['Lean Chicken', 'Makhani Sauce', 'Jeera Rice', 'Cucumber Raita'],
+    image: '/images/bowls/butter-chicken-lite.jpg',
+    detailedDescription:
+      'A guilt-free twist on the North Indian classic. Tender boneless chicken breast simmered in a silky tomato makhani sauce made without heavy cream, paired with cumin basmati rice and cooling cucumber raita.',
   },
   {
     id: 'rajma-chawal-remix',
@@ -30,9 +42,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 480,
       protein: 18,
+      carbs: 68,
+      fats: 11,
+      fiber: 12,
     },
-    ingredients: 'Slow-cooked rajma, red rice, pickled onions.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Slow-cooked rajma, red rice, pickled onions',
+    ingredientList: ['Slow-Cooked Rajma', 'Red Rice', 'Pickled Onions', 'Fresh Coriander'],
+    image: '/images/bowls/rajma-chawal-remix.jpg',
+    detailedDescription:
+      'Home-style comfort reimagined. Whole Himalayan red kidney beans slow-simmered in an aromatic ginger-tomato curry, paired with antioxidant-rich red rice and tangy pickled pink onions.',
   },
   {
     id: 'thai-basil-chicken',
@@ -41,9 +59,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 510,
       protein: 36,
+      carbs: 42,
+      fats: 16,
+      fiber: 6,
     },
-    ingredients: 'Minced chicken, thai basil, jasmine brown rice, stir-fried beans.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Basil chicken, jasmine rice, stir-fried veggies',
+    ingredientList: ['Minced Chicken', 'Holy Basil', 'Jasmine Rice', 'Stir-Fried Veggies'],
+    image: '/images/bowls/thai-basil-chicken.jpg',
+    detailedDescription:
+      'Inspired by authentic Pad Krapow. Wok-tossed lean minced chicken infused with fresh holy basil, garlic, and red chilies, served over fragrant jasmine brown rice with crisp tender veggies.',
   },
   {
     id: 'mexican-burrito-bowl',
@@ -52,9 +76,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 540,
       protein: 22,
+      carbs: 64,
+      fats: 17,
+      fiber: 11,
     },
-    ingredients: 'Black beans, fajita peppers, salsa fresca, quinoa, guacamole.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Beans, corn, salsa, sour cream, lettuce, rice',
+    ingredientList: ['Black Beans', 'Sweet Corn', 'Fresh Salsa', 'Guacamole', 'Cilantro Rice'],
+    image: '/images/bowls/mexican-burrito-bowl.jpg',
+    detailedDescription:
+      'Fiesta of fresh flavors. Seasoned black beans, fire-roasted sweet corn, handmade tomato pico de gallo, fresh guacamole, and crisp romaine over citrus-infused brown rice.',
   },
   {
     id: 'tandoori-fish-bowl',
@@ -63,9 +93,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 450,
       protein: 34,
+      carbs: 38,
+      fats: 14,
+      fiber: 6,
     },
-    ingredients: 'Spiced grilled fish, mint chutney, millet pilaf, kachumber.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Tandoori basa, quinoa, mint chutney',
+    ingredientList: ['Tandoori Basa', 'Quinoa Pilaf', 'Mint Chutney', 'Kachumber Salad'],
+    image: '/images/bowls/tandoori-fish-bowl.jpg',
+    detailedDescription:
+      'Fresh river basa fillet marinated in Punjabi tandoori spices and roasted to flaky perfection. Paired with protein-packed tri-color quinoa, refreshing coriander-mint chutney, and crisp kachumber.',
   },
   {
     id: 'chole-quinoa-bowl',
@@ -74,9 +110,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 470,
       protein: 19,
+      carbs: 62,
+      fats: 12,
+      fiber: 13,
     },
-    ingredients: 'Amritsari chole, spiced quinoa, roasted seeds, pickled beetroot.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Amritsari chole, quinoa, onion salad',
+    ingredientList: ['Amritsari Chole', 'Spiced Quinoa', 'Pickled Beetroot', 'Onion Salad'],
+    image: '/images/bowls/chole-quinoa-bowl.jpg',
+    detailedDescription:
+      'Rich, tangy Amritsari white chickpeas slow-cooked with roasted anardana and whole spices, nested over fluffy steamed quinoa with pickled beetroot and onion salad.',
   },
   {
     id: 'korean-chicken-bowl',
@@ -85,9 +127,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 590,
       protein: 35,
+      carbs: 52,
+      fats: 19,
+      fiber: 6,
     },
-    ingredients: 'Gochujang glazed chicken, sticky brown rice, kimchi, sesame greens.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Gochujang chicken, sesame rice, kimchi slaw',
+    ingredientList: ['Gochujang Chicken', 'Sesame Rice', 'Kimchi Slaw', 'Edamame'],
+    image: '/images/bowls/korean-chicken-bowl.jpg',
+    detailedDescription:
+      'Grilled chicken glazed with fermented spicy-sweet Korean gochujang paste, served over toasted sesame short-grain brown rice with authentic probiotic kimchi and steamed edamame.',
   },
   {
     id: 'palak-tofu-bowl',
@@ -96,9 +144,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 430,
       protein: 24,
+      carbs: 36,
+      fats: 16,
+      fiber: 9,
     },
-    ingredients: 'Sautéed tofu, creamy spinach puree, garlic brown rice.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Palak tofu, millet roti strips, roasted veg',
+    ingredientList: ['Pan-Seared Tofu', 'Creamy Spinach', 'Millet Strips', 'Roasted Veg'],
+    image: '/images/bowls/palak-tofu-bowl.jpg',
+    detailedDescription:
+      'Golden pan-seared organic firm tofu cubes resting on a velvety smooth spinach curry spiced with roasted cumin and garlic, with crisp millet roti strips and oven-roasted veggies.',
   },
   {
     id: 'egg-bhurji-power-bowl',
@@ -107,9 +161,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 490,
       protein: 30,
+      carbs: 42,
+      fats: 18,
+      fiber: 8,
     },
-    ingredients: 'Spiced scrambled eggs, sauteed spinach, sweet potato mash.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Masala egg bhurji, multigrain rice, sprouts',
+    ingredientList: ['Masala Egg Bhurji', 'Multigrain Rice', 'Sprouted Moong', 'Sweet Potato'],
+    image: '/images/bowls/egg-bhurji-power-bowl.jpg',
+    detailedDescription:
+      'Farm-fresh cage-free eggs scrambled Mumbai-style with onions, tomatoes, and green chilies, paired with fiber-dense multigrain rice, live sprouted moong salad, and roasted sweet potatoes.',
   },
   {
     id: 'mediterranean-falafel',
@@ -118,9 +178,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 550,
       protein: 20,
+      carbs: 60,
+      fats: 21,
+      fiber: 10,
     },
-    ingredients: 'Baked falafel, creamy hummus, grilled veggies, quinoa, olive dressing.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Baked falafel, hummus, couscous, pickled veg',
+    ingredientList: ['Baked Falafel', 'Creamy Hummus', 'Herb Couscous', 'Pickled Veg'],
+    image: '/images/bowls/mediterranean-falafel.jpg',
+    detailedDescription:
+      'Oven-baked herb chickpea falafels with crisp golden crusts, velvety olive oil hummus, fluffy parsley couscous, kalamata olives, and pickled Mediterranean vegetables.',
   },
   {
     id: 'chicken-biryani-fit',
@@ -129,9 +195,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 600,
       protein: 37,
+      carbs: 56,
+      fats: 17,
+      fiber: 6,
     },
-    ingredients: 'Layered fragrant brown basmati, lean marinated chicken, raita.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Biryani with less oil, brown basmati, raita',
+    ingredientList: ['Lean Chicken', 'Brown Basmati', 'Caramelized Onions', 'Mint Raita'],
+    image: '/images/bowls/chicken-biryani-fit.jpg',
+    detailedDescription:
+      'All the royal Awadhi fragrance with none of the grease. Long-grain brown basmati slow-dum cooked with whole spices, tender marinated chicken breast, saffron strands, and cooling mint raita.',
   },
   {
     id: 'teriyaki-mushroom-bowl',
@@ -140,9 +212,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 460,
       protein: 16,
+      carbs: 54,
+      fats: 12,
+      fiber: 8,
     },
-    ingredients: 'Glazed portobello mushrooms, edamame, soba noodles, sesame seeds.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Teriyaki mushrooms, edamame, sticky rice',
+    ingredientList: ['Glazed Mushrooms', 'Edamame', 'Sticky Brown Rice', 'Nori Strips'],
+    image: '/images/bowls/teriyaki-mushroom-bowl.jpg',
+    detailedDescription:
+      'Meaty king oyster and shiitake mushrooms glazed in a house-brewed low-sodium sweet teriyaki sauce, served with protein-rich steamed edamame, sticky brown rice, and toasted sesame nori.',
   },
   {
     id: 'mutton-keema-bowl',
@@ -151,9 +229,15 @@ export const BOWLS_DATA: BowlItem[] = [
     nutrition: {
       calories: 620,
       protein: 40,
+      carbs: 46,
+      fats: 22,
+      fiber: 6,
     },
-    ingredients: 'Slow-simmered lean mutton keema, whole wheat pav/rice, fresh mint.',
-    image: '/images/hero/hero-bowl.jpg',
+    ingredients: 'Lean keema, peas, jeera rice; available Fridays only',
+    ingredientList: ['Lean Mutton Keema', 'Sweet Green Peas', 'Jeera Basmati', 'Mint & Lemon'],
+    image: '/images/bowls/mutton-keema-bowl.jpg',
+    detailedDescription:
+      'A Friday culinary special. Premium lean minced mutton slow-simmered with sweet green peas, whole garam masalas, and caramelized shallots, served with fluffy jeera rice and fresh lemon wedges.',
     isFridayOnly: true,
   },
 ];

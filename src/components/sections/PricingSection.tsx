@@ -23,7 +23,7 @@ export function PricingSection() {
   };
 
   return (
-    <section id="plans" ref={pricingRef} className="py-16 sm:py-20 lg:py-28 relative">
+    <section id="plans" ref={pricingRef} className="pt-6 sm:pt-8 lg:pt-10 pb-16 sm:pb-20 lg:pb-28 relative">
       <Container>
         {/* Dark Forest Green Unified Card Container */}
         <div className="bg-[#173F32] rounded-[32px] p-6 sm:p-10 lg:p-14 text-white shadow-2xl relative overflow-hidden">
