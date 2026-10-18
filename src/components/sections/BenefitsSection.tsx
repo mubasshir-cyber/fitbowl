@@ -6,6 +6,7 @@ import { Leaf, Clock, Salad, Truck, ArrowRight } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '../ui/Container';
+import { smoothScrollTo } from '@/utils/scroll';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -132,8 +133,7 @@ export function BenefitsSection() {
   }, []);
 
   const scrollTo = (id: string) => {
-    const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    smoothScrollTo(id);
   };
 
   return (

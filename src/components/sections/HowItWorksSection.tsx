@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '../ui/Container';
 import { Badge } from '../ui/Badge';
+import { smoothScrollTo } from '@/utils/scroll';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -352,10 +353,7 @@ export function HowItWorksSection() {
 
   const handleNavigate = (targetId?: string) => {
     if (!targetId) return;
-    const targetElement = document.querySelector(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo(targetId);
   };
 
   return (

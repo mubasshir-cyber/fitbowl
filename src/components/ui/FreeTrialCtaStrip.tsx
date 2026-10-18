@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import { ArrowRight, Gift } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { smoothScrollTo } from '@/utils/scroll';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -128,10 +129,7 @@ export function FreeTrialCtaStrip({ onClaim, className = '' }: FreeTrialCtaStrip
       onClaim();
       return;
     }
-    const form = document.querySelector('#trial-form');
-    if (form) {
-      form.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo('#trial-form');
   };
 
   return (

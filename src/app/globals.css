@@ -39,8 +39,25 @@
   font-family: var(--font-caveat), cursive;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Lenis Smooth Scrolling Core */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {
@@ -48,7 +65,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-nunito), system-ui, -apple-system, sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, h5, h6 {

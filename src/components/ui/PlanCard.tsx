@@ -3,6 +3,7 @@
 import React from 'react';
 import { Check, ArrowRight } from 'lucide-react';
 import { SubscriptionPlan, PlanId } from '@/types/pricing';
+import { smoothScrollTo } from '@/utils/scroll';
 
 interface PlanCardProps {
   plan: SubscriptionPlan;
@@ -15,10 +16,7 @@ export function PlanCard({ plan, onSelectPlan, popularBadgeRef }: PlanCardProps)
     if (onSelectPlan) {
       onSelectPlan(plan.id);
     } else {
-      const form = document.querySelector('#trial-form');
-      if (form) {
-        form.scrollIntoView({ behavior: 'smooth' });
-      }
+      smoothScrollTo('#trial-form');
     }
   };
 

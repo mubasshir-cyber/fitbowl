@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Nunito, Caveat } from "next/font/google";
 import "./globals.css";
 import { FAQS_DATA } from "@/data/faqs";
+import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -146,7 +147,9 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      </body>
     </html>
   );
 }

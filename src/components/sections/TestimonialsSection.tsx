@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '../ui/Container';
 import { Badge } from '../ui/Badge';
 import { TESTIMONIALS_DATA } from '@/data/testimonials';
+import { smoothScrollTo } from '@/utils/scroll';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -112,6 +113,7 @@ export function TestimonialsSection() {
             scrub: 1,
             invalidateOnRefresh: true,
             anticipatePin: 1,
+            fastScrollEnd: true,
           },
         });
 
@@ -126,6 +128,7 @@ export function TestimonialsSection() {
               start: 'top top',
               end: () => `+=${getDistance() + 200}`,
               scrub: 1.2,
+              fastScrollEnd: true,
             },
           });
         }
@@ -138,10 +141,7 @@ export function TestimonialsSection() {
   }, []);
 
   const handleScrollToMenu = () => {
-    const menuSection = document.querySelector('#menu');
-    if (menuSection) {
-      menuSection.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo('#menu');
   };
 
   const handleMobileScroll = (direction: 'prev' | 'next') => {

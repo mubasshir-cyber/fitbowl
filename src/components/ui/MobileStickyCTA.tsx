@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Button } from './Button';
+import { smoothScrollTo } from '@/utils/scroll';
 
 export function MobileStickyCTA() {
   const [isVisible, setIsVisible] = useState(false);
@@ -41,10 +42,7 @@ export function MobileStickyCTA() {
   }, []);
 
   const scrollToTrial = () => {
-    const target = document.getElementById('trial-form');
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo('#trial-form');
   };
 
   if (!isVisible) return null;

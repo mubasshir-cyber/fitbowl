@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '../ui/Container';
 import { PlanCard } from '../ui/PlanCard';
 import { SUBSCRIPTION_PLANS } from '@/data/plans';
+import { smoothScrollTo } from '@/utils/scroll';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -195,10 +196,7 @@ export function PricingSection() {
   }, []);
 
   const handleSelectPlan = () => {
-    const form = document.querySelector('#trial-form');
-    if (form) {
-      form.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo('#trial-form');
   };
 
   return (

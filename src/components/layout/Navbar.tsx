@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { Menu, X, ArrowRight, Phone } from 'lucide-react';
 import { Container } from '../ui/Container';
 import { Button } from '../ui/Button';
+import { smoothScrollTo } from '@/utils/scroll';
 
 const NAV_LINKS = [
   { label: 'Menu', href: '#menu' },
@@ -52,10 +53,7 @@ export function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo(href);
   };
 
   return (

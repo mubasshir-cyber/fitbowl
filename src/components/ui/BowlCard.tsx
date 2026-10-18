@@ -34,7 +34,6 @@ export function BowlCard({ bowl, onOpenDetails, priority = false }: BowlCardProp
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             priority={priority}
-            unoptimized
             className="object-cover object-center group-hover:scale-106 transition-transform duration-500 ease-out"
           />
 

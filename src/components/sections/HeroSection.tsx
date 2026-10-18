@@ -7,6 +7,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Container } from '../ui/Container';
 import { HeroMarquee } from './HeroMarquee';
+import { smoothScrollTo } from '@/utils/scroll';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -33,8 +34,7 @@ export function HeroSection() {
   const badgeRef = useRef<HTMLDivElement>(null);
 
   const scrollTo = (id: string) => {
-    const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    smoothScrollTo(id);
   };
 
   useEffect(() => {

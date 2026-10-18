@@ -12,6 +12,7 @@ import { BowlDetailsDialog } from '../ui/BowlDetailsDialog';
 import { FreeTrialCtaStrip } from '../ui/FreeTrialCtaStrip';
 import { BOWLS_DATA } from '@/data/bowls';
 import { BowlItem, MenuFilterType } from '@/types/menu';
+import { smoothScrollTo } from '@/utils/scroll';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -200,10 +201,7 @@ export function MenuSection() {
   const handleSelectForTrial = (_bowl: BowlItem) => {
     void _bowl;
     setSelectedBowl(null);
-    const form = document.querySelector('#trial-form');
-    if (form) {
-      form.scrollIntoView({ behavior: 'smooth' });
-    }
+    smoothScrollTo('#trial-form');
   };
 
   const handleResetFilters = () => {
@@ -215,10 +213,7 @@ export function MenuSection() {
   const handleToggleExpand = () => {
     if (isExpanded) {
       setIsExpanded(false);
-      const menuEl = document.getElementById('menu');
-      if (menuEl) {
-        menuEl.scrollIntoView({ behavior: 'smooth' });
-      }
+      smoothScrollTo('#menu');
     } else {
       setIsExpanded(true);
       // Clear search if user explicitly requests to browse all
