@@ -52,7 +52,7 @@ To deliver an exceptional, production-grade landing page within the 48-hour time
 | **Phase 1** | Foundation & Design System | P0 | 45 min | Phase 0 | **Completed** |
 | **Phase 2** | Navbar & Hero Section | P0 | 60 min | Phase 1 | **Completed** |
 | **Phase 3** | Menu Catalog & Pricing Plans | P0 | 75 min | Phase 1 | **Completed** |
-| **Phase 4** | Supporting Content Sections | P1 | 60 min | Phase 2, 3 | **Not started** |
+| **Phase 4** | Supporting Content Sections | P1 | 60 min | Phase 2, 3 | **Completed** |
 | **Phase 5** | Free Trial Booking & Conversion | P0 | 75 min | Phase 1, 3 | **Not started** |
 | **Phase 6** | Animation, Responsive QA & a11y | P1 | 60 min | Phase 2–5 | **Not started** |
 | **Phase 7** | SEO, Testing & Production Polish | P0 | 45 min | Phase 2–6 | **Not started** |
@@ -299,9 +299,9 @@ Implement the Why FitBowl benefits, 4-step How It Works process, 4 customer test
 - `src/app/page.tsx`
 
 ### Acceptance Criteria
-- [ ] All 4 benefits, 4 steps, 4 testimonials, and 8 FAQs render with exact assigned copy.
-- [ ] FAQ accordion toggles smoothly with full keyboard accessibility.
-- [ ] Newsletter provides instant simulated feedback.
+- [x] All 4 benefits, 4 steps, 4 testimonials, and 8 FAQs render with exact assigned copy.
+- [x] FAQ accordion toggles smoothly with full keyboard accessibility.
+- [x] Newsletter provides instant simulated feedback.
 
 ### Verification Steps
 ```bash
